@@ -1,61 +1,50 @@
 package it.unicam.cs.followme.bidimensionalspace;
 
+import it.unicam.cs.followme.Interfaces.Command;
 import it.unicam.cs.followme.Interfaces.Position;
 import it.unicam.cs.followme.Interfaces.Robot;
 
 import java.util.Objects;
 
-public class SimpleRobot implements Robot {
+public class SimpleRobot implements Robot<BidimensionalPosition> {
 
     private final int id;
-    private Position position;
-    private Position direction;
-    private double speed;
+    private RobotInfo info;
+    private Command command;
 
-    public SimpleRobot(int id, BidimensionalPosition position, BidimensionalPosition direction, double speed) {
+    public SimpleRobot(int id, RobotInfo info) {
         this.id = id;
-        this.position = position;
-        this.direction = direction;
-        this.speed = speed;
+        this.info = info;
+        //this.command = new Stop();
     }
 
-    public int getId() {
+    public int askId() {
         return id;
     }
 
     @Override
-    public Position getPosition() {
-        return this.position;
+    public BidimensionalPosition askPosition() {
+        return info.position();
     }
 
     @Override
-    public void setPosition(Position position) {
-        this.position = position;
+    public BidimensionalPosition askDirection() {
+        return info.direction();
     }
 
     @Override
-    public Position getDirection() {
-        return this.direction;
+    public double askSpeed() {
+        return info.speed();
     }
 
     @Override
-    public void setDirection(Position direction) {
-        this.direction = direction;
-    }
-
-    @Override
-    public double getSpeed() {
-        return speed;
-    }
-
-    @Override
-    public void setSpeed(double speed) {
-        this.speed = speed;
-    }
-
-    @Override
-    public String getLabel() {
+    public String askLabel() {
         return null;
+    }
+
+    @Override
+    public void nextState() {
+
     }
 
 
@@ -76,9 +65,7 @@ public class SimpleRobot implements Robot {
     public String toString() {
         return "SimpleRobot{" +
                 "id=" + id +
-                ", position=" + position +
-                ", direction=" + direction +
-                ", speed=" + speed +
+                ", command=" + command +
                 '}';
     }
 }

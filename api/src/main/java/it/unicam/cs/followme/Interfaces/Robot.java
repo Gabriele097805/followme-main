@@ -10,54 +10,39 @@ public interface Robot<P extends Position> {
      *
      * @return the id.
      */
-    int getId();
+    int askId();
 
     /**
      * Return the current position.
      *
      * @return the current position.
      */
-    P getPosition();
-
-    /**
-     * Set a new position for the robot.
-     *
-     * @param position
-     */
-    void setPosition(P position);
+    P askPosition();
 
     /**
      * Return the direction which the robot is moving.
      *
      * @return robot direction.
      */
-    P getDirection();
-
-    /**
-     * Set a new direction for the robot.
-     *
-     * @param direction
-     */
-    void setDirection(P direction);
+    P askDirection();
 
     /**
      * Return the current speed which the robot is moving.
      *
      * @return speed value.
      */
-    double getSpeed();
-
-    /**
-     * Set a new speed of the robot.
-     *
-     * @param speed
-     */
-    void setSpeed(double speed);
+    double askSpeed();
 
     /**
      *
      *
      * @return
      */
-    String getLabel();
+    String askLabel();
+
+    /**
+     * This method compute the current state in the robot with the command
+     * saved in it to get the next state.
+     */
+    void nextState();
 }

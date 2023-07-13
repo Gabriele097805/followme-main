@@ -11,14 +11,11 @@ public class BidimensionalPosition implements Position<Double> {
     private final double y;
 
     public BidimensionalPosition(List<Double> coordinates) throws IOException {
-        if (coordinates.size() == 2) {
-            try {
-                this.x = coordinates.get(0);
-                this.y = coordinates.get(1);
-            } catch (RuntimeException e) {
-            }
+        if (coordinates.size() != 2) {
+            throw new IOException("Illegal format!");
         }
-        throw new IOException("Illegal format!");
+        this.x = coordinates.get(0);
+        this.y = coordinates.get(1);
     }
 
     @Override
