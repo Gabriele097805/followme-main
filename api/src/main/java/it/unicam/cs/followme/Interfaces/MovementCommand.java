@@ -1,20 +1,11 @@
 package it.unicam.cs.followme.Interfaces;
 
-import it.unicam.cs.followme.utilities.RobotCommand;
-
 import java.util.Optional;
 
 /**
- * This interface represent an instruction given to a robot.
+ * This interface represent a movement instruction given to a robot.
  */
-public interface Command {
-
-    /**
-     * Method to ask the type of command.
-     *
-     * @return Enum RobotCommand.
-     */
-    RobotCommand askCommandType();
+public interface MovementCommand {
 
     /**
      * Method to ask the label if is present.

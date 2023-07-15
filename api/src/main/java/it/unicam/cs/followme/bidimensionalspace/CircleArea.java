@@ -11,6 +11,12 @@ public class CircleArea implements Shape<BidimensionalPosition> {
     private BidimensionalPosition centre;
     private double radius;
 
+    public CircleArea(String label, BidimensionalPosition centre, double radius) {
+        this.label = label;
+        this.centre = centre;
+        this.radius = radius;
+    }
+
     @Override
     public String getLabel() {
         return null;
@@ -23,7 +29,6 @@ public class CircleArea implements Shape<BidimensionalPosition> {
 
     @Override
     public boolean isInArea(BidimensionalPosition position) {
-        boolean result = (computeDistanceBetweenTwoPosition(this.centre, position) <= radius) ? true : false;
-        return result;
+        return (computeDistanceBetweenTwoPosition(this.centre, position) <= radius) ? true : false;
     }
 }
