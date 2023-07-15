@@ -21,7 +21,7 @@ public interface Command {
      *
      * @return an Optional of the value.
      */
-    Optional<String> askLabelIfPresent();
+    Optional<String> askLabel();
 
     /**
      * Method to get the Elements.

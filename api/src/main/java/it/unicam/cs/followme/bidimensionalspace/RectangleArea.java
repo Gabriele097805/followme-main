@@ -1,12 +1,13 @@
 package it.unicam.cs.followme.bidimensionalspace;
 
+import it.unicam.cs.followme.Interfaces.EnvironmentEntity;
 import it.unicam.cs.followme.Interfaces.Shape;
 
 import java.util.List;
 
 import static it.unicam.cs.followme.bidimensionalspace.utilities.Utilities.computeDistanceOnAxis;
 
-public class RectangleArea implements Shape<BidimensionalPosition> {
+public class RectangleArea implements Shape<BidimensionalPosition>, EnvironmentEntity {
 
     private String label;
     private BidimensionalPosition centre;
@@ -26,7 +27,7 @@ public class RectangleArea implements Shape<BidimensionalPosition> {
     }
 
     @Override
-    public BidimensionalPosition getCentre() {
+    public BidimensionalPosition getPosition() {
         return this.centre;
     }
 

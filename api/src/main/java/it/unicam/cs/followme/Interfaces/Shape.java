@@ -16,7 +16,7 @@ public interface Shape<P extends Position> {
      *
      * @return
      */
-    P getCentre();
+    P getPosition();
 
     /**
      * Return the Area of the shape.
