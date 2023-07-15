@@ -1,13 +1,12 @@
 package it.unicam.cs.followme.bidimensionalspace.shapes;
 
-import it.unicam.cs.followme.Interfaces.EnvironmentEntity;
 import it.unicam.cs.followme.Interfaces.Area;
 import it.unicam.cs.followme.bidimensionalspace.BidimensionalPosition;
 import it.unicam.cs.followme.utilities.ShapeData;
 
 import static it.unicam.cs.followme.bidimensionalspace.utilities.Utilities.computeDistanceBetweenTwoPosition;
 
-public class CircleArea implements Area<BidimensionalPosition>, EnvironmentEntity {
+public class CircleArea implements Area<BidimensionalPosition> {
 
     private String label;
     private BidimensionalPosition centre;

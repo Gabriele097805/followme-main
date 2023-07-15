@@ -1,39 +1,28 @@
 package it.unicam.cs.followme.bidimensionalspace;
 
 import it.unicam.cs.followme.Interfaces.Environment;
-import it.unicam.cs.followme.Interfaces.EnvironmentEntity;
 import it.unicam.cs.followme.Interfaces.Robot;
 import it.unicam.cs.followme.Interfaces.Area;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class BidimensionalEnvironment<EnvironmentEntity> implements Environment {
+public class BidimensionalEnvironment<R extends Robot, A extends Area> implements Environment {
 
-    private List<EnvironmentEntity> entities;
+    private List<R> robots;
+    private List<A> areas;
 
-    public void addEnvironmentEntities(List entities) {
-        this.entities.addAll(entities);
+    public void addElements(List robots, List areas) {
+        this.robots = robots;
+        this.areas = areas;
     }
 
     @Override
-    public List<EnvironmentEntity> getEntities() {
-        return this.entities;
+    public List<R> getRobots() {
+        return this.robots;
     }
 
     @Override
-    public List<Robot> getRobots() {
-        return this.entities.stream()
-                .filter(Robot.class::isInstance)
-                .map(Robot.class::cast)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Area> getAreas() {
-        return this.entities.stream()
-                .filter(Area.class::isInstance)
-                .map (Area.class::cast)
-                .collect(Collectors.toList());
+    public List<A> getAreas() {
+        return this.areas;
     }
 }

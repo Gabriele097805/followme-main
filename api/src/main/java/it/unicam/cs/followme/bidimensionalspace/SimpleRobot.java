@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-public class SimpleRobot implements Robot<Position, Command>, EnvironmentEntity {
+public class SimpleRobot implements Robot<Position, Command> {
 
     private final int id;
     private final Environment env;
@@ -33,7 +33,7 @@ public class SimpleRobot implements Robot<Position, Command>, EnvironmentEntity 
     }
 
     @Override
-    public Position getPosition() {
+    public Position askPosition() {
         return position;
     }
 
@@ -48,7 +48,7 @@ public class SimpleRobot implements Robot<Position, Command>, EnvironmentEntity 
     }
 
     @Override
-    public String getLabel() {
+    public String askLabel() {
         return null;
     }
 

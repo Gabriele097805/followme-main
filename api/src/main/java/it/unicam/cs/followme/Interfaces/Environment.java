@@ -5,24 +5,17 @@ import java.util.List;
 /**
  * An Environment store all the Robots and Areas in the simulation.
  *
- * @param <E> extends the EnvironmentEntity interface which is an element
- *           such as Robots and Areas in the simulation.
+ * @param <R>
+ * @param <A>
  */
-public interface Environment<E extends EnvironmentEntity> {
+public interface Environment<R extends Robot, A extends Area> {
+
 
     /**
-     * Method to add a list of Robots or Areas in the environment.
-     *
-     * @param entities is a List of Robots or Areas.
+     * @param robots
+     * @param areas
      */
-    void addEnvironmentEntities(List<E> entities);
-
-    /**
-     * Return all the entities in the environment.
-     *
-     * @return a List of EnvironmentEntity.
-     */
-    List<E> getEntities();
+    void addElements(List<R> robots, List<A> areas);
 
     /**
      * Return all the entities which implements Robot Interface in the environment.

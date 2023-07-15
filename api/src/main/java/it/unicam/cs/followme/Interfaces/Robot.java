@@ -13,6 +13,11 @@ public interface Robot<P extends Position, C extends Command> {
     int askId();
 
     /**
+     * @return
+     */
+    P askPosition();
+
+    /**
      * Return the direction which the robot is moving.
      *
      * @return robot direction.
@@ -25,6 +30,11 @@ public interface Robot<P extends Position, C extends Command> {
      * @return speed value.
      */
     double askSpeed();
+
+    /**
+     * @return
+     */
+    String askLabel();
 
     /**
      * This method compute the current state in the robot with the command

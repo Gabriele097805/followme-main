@@ -3,7 +3,6 @@ package it.unicam.cs.followme.bidimensionalspace;
 import it.unicam.cs.followme.Interfaces.Command;
 import it.unicam.cs.followme.utilities.RobotCommand;
 
-import java.util.List;
 import java.util.Optional;
 
 public class MovementCommand implements Command {
