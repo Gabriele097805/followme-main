@@ -2,6 +2,7 @@ package it.unicam.cs.followme.bidimensionalspace;
 
 import it.unicam.cs.followme.Interfaces.Position;
 import it.unicam.cs.followme.Interfaces.Shape;
+import it.unicam.cs.followme.bidimensionalspace.shapes.CircleArea;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

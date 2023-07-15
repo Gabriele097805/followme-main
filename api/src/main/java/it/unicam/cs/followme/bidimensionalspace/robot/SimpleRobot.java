@@ -1,9 +1,9 @@
-package it.unicam.cs.followme.bidimensionalspace;
+package it.unicam.cs.followme.bidimensionalspace.robot;
 
 import it.unicam.cs.followme.Interfaces.Command;
 import it.unicam.cs.followme.Interfaces.EnvironmentEntity;
-import it.unicam.cs.followme.Interfaces.Position;
 import it.unicam.cs.followme.Interfaces.Robot;
+import it.unicam.cs.followme.bidimensionalspace.BidimensionalPosition;
 
 import java.util.Objects;
 

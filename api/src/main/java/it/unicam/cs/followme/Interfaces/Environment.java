@@ -1,4 +1,7 @@
 package it.unicam.cs.followme.Interfaces;
 
-public interface Environment {
+import java.util.List;
+
+public interface Environment<E extends EnvironmentEntity> {
+    List<EnvironmentEntity> getEntities();
 }

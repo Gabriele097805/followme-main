@@ -1,7 +1,8 @@
-package it.unicam.cs.followme.bidimensionalspace;
+package it.unicam.cs.followme.bidimensionalspace.shapes;
 
 import it.unicam.cs.followme.Interfaces.EnvironmentEntity;
 import it.unicam.cs.followme.Interfaces.Shape;
+import it.unicam.cs.followme.bidimensionalspace.BidimensionalPosition;
 
 import java.util.List;
 

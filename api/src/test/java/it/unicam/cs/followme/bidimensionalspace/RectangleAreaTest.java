@@ -2,10 +2,10 @@ package it.unicam.cs.followme.bidimensionalspace;
 
 import it.unicam.cs.followme.Interfaces.Position;
 import it.unicam.cs.followme.Interfaces.Shape;
+import it.unicam.cs.followme.bidimensionalspace.shapes.RectangleArea;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;

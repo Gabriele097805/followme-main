@@ -7,5 +7,14 @@ import java.util.List;
 
 public class BidimensionalEnvironment implements Environment {
 
-    List<EnvironmentEntity> entities;
+    private List<EnvironmentEntity> entities;
+
+    public BidimensionalEnvironment() {
+
+    }
+
+    @Override
+    public List<EnvironmentEntity> getEntities() {
+        return this.entities;
+    }
 }
