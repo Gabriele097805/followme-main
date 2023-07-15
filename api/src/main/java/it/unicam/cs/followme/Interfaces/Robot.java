@@ -30,5 +30,5 @@ public interface Robot<P extends Position> {
      * This method compute the current state in the robot with the command
      * saved in it to get the next state.
      */
-    void nextState();
+    void executeCommand();
 }

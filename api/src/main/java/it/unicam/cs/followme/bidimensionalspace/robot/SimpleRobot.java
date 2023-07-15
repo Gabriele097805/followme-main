@@ -1,6 +1,7 @@
 package it.unicam.cs.followme.bidimensionalspace.robot;
 
 import it.unicam.cs.followme.Interfaces.Command;
+import it.unicam.cs.followme.Interfaces.Environment;
 import it.unicam.cs.followme.Interfaces.EnvironmentEntity;
 import it.unicam.cs.followme.Interfaces.Robot;
 import it.unicam.cs.followme.bidimensionalspace.BidimensionalPosition;
@@ -10,11 +11,13 @@ import java.util.Objects;
 public class SimpleRobot implements Robot<BidimensionalPosition>, EnvironmentEntity {
 
     private final int id;
+    private final Environment env;
     private RobotInfo info;
     private Command command;
 
-    public SimpleRobot(int id, RobotInfo info) {
+    public SimpleRobot(int id, Environment env, RobotInfo info) {
         this.id = id;
+        this.env = env;
         this.info = info;
         //this.command = new Stop();
     }
@@ -44,7 +47,7 @@ public class SimpleRobot implements Robot<BidimensionalPosition>, EnvironmentEnt
     }
 
     @Override
-    public void nextState() {
+    public void executeCommand() {
 
     }
 
