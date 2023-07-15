@@ -1,7 +1,7 @@
 package it.unicam.cs.followme.bidimensionalspace;
 
 import it.unicam.cs.followme.Interfaces.Position;
-import it.unicam.cs.followme.Interfaces.Shape;
+import it.unicam.cs.followme.Interfaces.Area;
 import it.unicam.cs.followme.bidimensionalspace.shapes.CircleArea;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +14,7 @@ class CircleAreaTest {
 
     @Test
     void isInArea() throws IOException {
-        Shape Circle = new CircleArea("label",
+        Area Circle = new CircleArea("label",
                 new BidimensionalPosition(List.of(3.0, 4.0)),
                 30.0);
         Position position1 = new BidimensionalPosition(List.of(17.0, 16.0));

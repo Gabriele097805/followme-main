@@ -1,14 +1,14 @@
 package it.unicam.cs.followme.bidimensionalspace.shapes;
 
 import it.unicam.cs.followme.Interfaces.EnvironmentEntity;
-import it.unicam.cs.followme.Interfaces.Shape;
+import it.unicam.cs.followme.Interfaces.Area;
 import it.unicam.cs.followme.bidimensionalspace.BidimensionalPosition;
 
 import java.util.List;
 
 import static it.unicam.cs.followme.bidimensionalspace.utilities.Utilities.computeDistanceOnAxis;
 
-public class RectangleArea implements Shape<BidimensionalPosition>, EnvironmentEntity {
+public class RectangleArea implements Area<BidimensionalPosition>, EnvironmentEntity {
 
     private String label;
     private BidimensionalPosition centre;

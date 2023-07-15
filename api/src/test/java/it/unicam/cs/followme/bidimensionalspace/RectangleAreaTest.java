@@ -1,7 +1,7 @@
 package it.unicam.cs.followme.bidimensionalspace;
 
 import it.unicam.cs.followme.Interfaces.Position;
-import it.unicam.cs.followme.Interfaces.Shape;
+import it.unicam.cs.followme.Interfaces.Area;
 import it.unicam.cs.followme.bidimensionalspace.shapes.RectangleArea;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +14,7 @@ class RectangleAreaTest {
 
     @Test
     void isInArea() throws IOException {
-        Shape Rectangle = new RectangleArea("label",
+        Area Rectangle = new RectangleArea("label",
                 new BidimensionalPosition(List.of(3.0, 4.0)),
                 30.0,
                 40.0);

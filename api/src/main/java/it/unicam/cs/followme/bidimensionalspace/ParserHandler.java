@@ -1,8 +1,14 @@
 package it.unicam.cs.followme.bidimensionalspace;
 
+import it.unicam.cs.followme.Interfaces.Command;
 import it.unicam.cs.followme.utilities.FollowMeParserHandler;
 
+import java.util.List;
+
 public class ParserHandler implements FollowMeParserHandler {
+
+    private List<Command> commands;
+
     @Override
     public void parsingStarted() {
 

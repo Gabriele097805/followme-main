@@ -1,24 +1,30 @@
-package it.unicam.cs.followme.bidimensionalspace.robot;
+package it.unicam.cs.followme.bidimensionalspace;
 
-import it.unicam.cs.followme.Interfaces.Command;
-import it.unicam.cs.followme.Interfaces.Environment;
-import it.unicam.cs.followme.Interfaces.EnvironmentEntity;
-import it.unicam.cs.followme.Interfaces.Robot;
-import it.unicam.cs.followme.bidimensionalspace.BidimensionalPosition;
+import it.unicam.cs.followme.Interfaces.*;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 public class SimpleRobot implements Robot<BidimensionalPosition, Command>, EnvironmentEntity {
 
     private final int id;
     private final Environment env;
-    private RobotInfo info;
+    BidimensionalPosition position;
+    BidimensionalPosition direction;
+    double speed;
     private Command command;
 
-    public SimpleRobot(int id, Environment env, RobotInfo info) {
+    public SimpleRobot(int id, Environment env) throws IOException {
         this.id = id;
         this.env = env;
-        this.info = info;
+        Random r = new Random();
+        double x = r.nextDouble() * 100;
+        double y = r.nextDouble() * 100;
+        this.position = new BidimensionalPosition(List.of(x, y));
+        this.direction = new BidimensionalPosition(List.of(0.0, 0.0));
+        this.speed = 0.0;
         //this.command = new Stop();
     }
 
@@ -28,17 +34,17 @@ public class SimpleRobot implements Robot<BidimensionalPosition, Command>, Envir
 
     @Override
     public BidimensionalPosition getPosition() {
-        return info.position();
+        return position;
     }
 
     @Override
     public BidimensionalPosition askDirection() {
-        return info.direction();
+        return direction;
     }
 
     @Override
     public double askSpeed() {
-        return info.speed();
+        return speed;
     }
 
     @Override
