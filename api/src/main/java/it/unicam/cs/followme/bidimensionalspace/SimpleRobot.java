@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-public class SimpleRobot implements Robot<BidimensionalPosition, Command>, EnvironmentEntity {
+public class SimpleRobot implements Robot<Position, Command>, EnvironmentEntity {
 
     private final int id;
     private final Environment env;
-    BidimensionalPosition position;
-    BidimensionalPosition direction;
+    Position position;
+    Position direction;
     double speed;
     private Command command;
 
@@ -33,12 +33,12 @@ public class SimpleRobot implements Robot<BidimensionalPosition, Command>, Envir
     }
 
     @Override
-    public BidimensionalPosition getPosition() {
+    public Position getPosition() {
         return position;
     }
 
     @Override
-    public BidimensionalPosition askDirection() {
+    public Position askDirection() {
         return direction;
     }
 
