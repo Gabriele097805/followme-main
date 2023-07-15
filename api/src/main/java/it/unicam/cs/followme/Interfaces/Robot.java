@@ -3,7 +3,7 @@ package it.unicam.cs.followme.Interfaces;
 /**
  * This interface represent a robot in the space.
  */
-public interface Robot<P extends Position> {
+public interface Robot<P extends Position, C extends Command> {
 
     /**
      * Return the robot id.
@@ -30,5 +30,5 @@ public interface Robot<P extends Position> {
      * This method compute the current state in the robot with the command
      * saved in it to get the next state.
      */
-    void executeCommand();
+    void executeCommand(C command);
 }

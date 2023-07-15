@@ -8,7 +8,7 @@ import it.unicam.cs.followme.bidimensionalspace.BidimensionalPosition;
 
 import java.util.Objects;
 
-public class SimpleRobot implements Robot<BidimensionalPosition>, EnvironmentEntity {
+public class SimpleRobot implements Robot<BidimensionalPosition, Command>, EnvironmentEntity {
 
     private final int id;
     private final Environment env;
@@ -47,7 +47,7 @@ public class SimpleRobot implements Robot<BidimensionalPosition>, EnvironmentEnt
     }
 
     @Override
-    public void executeCommand() {
+    public void executeCommand(Command command) {
 
     }
 
