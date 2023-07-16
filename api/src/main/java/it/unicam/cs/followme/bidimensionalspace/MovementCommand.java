@@ -1,11 +1,11 @@
 package it.unicam.cs.followme.bidimensionalspace;
 
-import it.unicam.cs.followme.Interfaces.Command;
+import it.unicam.cs.followme.Interfaces.ICommand;
 import it.unicam.cs.followme.utilities.RobotCommand;
 
 import java.util.Optional;
 
-public class MovementCommand implements Command {
+public class MovementCommand implements ICommand {
 
     private final RobotCommand type;
     private String label;
@@ -24,12 +24,12 @@ public class MovementCommand implements Command {
 
 
     @Override
-    public RobotCommand askCommandType() {
+    public RobotCommand getCommandType() {
         return this.type;
     }
 
     @Override
-    public Optional<String> askLabel() {
+    public Optional<String> getLabel() {
         return Optional.of(this.label);
     }
 

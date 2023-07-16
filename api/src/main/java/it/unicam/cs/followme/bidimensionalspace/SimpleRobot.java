@@ -7,16 +7,16 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-public class SimpleRobot implements Robot<Position, Command> {
+public class SimpleRobot implements IRobot<IPosition, ICommand> {
 
     private final int id;
-    private final Environment env;
-    Position position;
-    Position direction;
-    double speed;
-    private Command command;
+    private final IEnvironment env;
+    private IPosition position;
+    private IPosition direction;
+    private double speed;
+    private ICommand command;
 
-    public SimpleRobot(int id, Environment env) throws IOException {
+    public SimpleRobot(int id, IEnvironment env) throws IOException {
         this.id = id;
         this.env = env;
         Random r = new Random();
@@ -25,7 +25,6 @@ public class SimpleRobot implements Robot<Position, Command> {
         this.position = new BidimensionalPosition(List.of(x, y));
         this.direction = new BidimensionalPosition(List.of(0.0, 0.0));
         this.speed = 0.0;
-        //this.command = new Stop();
     }
 
     public int askId() {
@@ -33,18 +32,8 @@ public class SimpleRobot implements Robot<Position, Command> {
     }
 
     @Override
-    public Position askPosition() {
+    public IPosition askPosition() {
         return position;
-    }
-
-    @Override
-    public Position askDirection() {
-        return direction;
-    }
-
-    @Override
-    public double askSpeed() {
-        return speed;
     }
 
     @Override
@@ -53,10 +42,18 @@ public class SimpleRobot implements Robot<Position, Command> {
     }
 
     @Override
-    public void executeCommand(Command command) {
-
+    public void executeCommand(ICommand command) {
+        
     }
 
+    private void move() {
+        double[] elements = command.getElements();
+        this.direction = new BidimensionalPosition(List.of(elements[0], elements[1]));
+        this.speed = elements[2];
+        double x = elements[0] * this.speed;
+        double y = elements[1] * this.speed;
+        this.position = new BidimensionalPosition(List.of(x, y));
+    }
 
     @Override
     public boolean equals(Object o) {

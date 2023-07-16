@@ -1,13 +1,24 @@
 package it.unicam.cs.followme.bidimensionalspace;
 
-import it.unicam.cs.followme.Interfaces.Command;
+import it.unicam.cs.followme.Interfaces.ICommand;
+import it.unicam.cs.followme.Interfaces.IEnvironment;
 import it.unicam.cs.followme.utilities.FollowMeParserHandler;
+import it.unicam.cs.followme.utilities.RobotCommand;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ParserHandler implements FollowMeParserHandler {
+import static it.unicam.cs.followme.bidimensionalspace.utilities.Utilities.computeRandomBetweenTwoDouble;
 
-    private List<Command> commands;
+public class ParserHandler implements FollowMeParserHandler {
+    private IEnvironment env;
+
+    private List<ICommand> commands;
+
+    public ParserHandler(IEnvironment env) {
+        this.env = env;
+        this.commands = new ArrayList<>();
+    }
 
     @Override
     public void parsingStarted() {
@@ -21,12 +32,23 @@ public class ParserHandler implements FollowMeParserHandler {
 
     @Override
     public void moveCommand(double[] args) {
-
+        ICommand command = new MovementCommand(RobotCommand.MOVE, args);
+        List<SimpleRobot> robots = env.getRobots();
+        for (SimpleRobot robot : robots) {
+            robot.executeCommand(command);
+        }
     }
 
     @Override
     public void moveRandomCommand(double[] args) {
-
+        double x = computeRandomBetweenTwoDouble(args[0], args[1]);
+        double y = computeRandomBetweenTwoDouble(args[2], args[3]);
+        double[] newArgs = {x, y, args[4]};
+        ICommand command = new MovementCommand(RobotCommand.MOVE, newArgs);
+        List<SimpleRobot> robots = env.getRobots();
+        for (SimpleRobot robot : robots) {
+            robot.executeCommand(command);
+        }
     }
 
     @Override
@@ -46,7 +68,8 @@ public class ParserHandler implements FollowMeParserHandler {
 
     @Override
     public void stopCommand() {
-
+        ICommand command = new MovementCommand(RobotCommand.STOP,
+                new double[] {0.0, 0.0, 0.0});
     }
 
     @Override
@@ -71,6 +94,10 @@ public class ParserHandler implements FollowMeParserHandler {
 
     @Override
     public void doneCommand() {
+
+    }
+
+    private boolean () {
 
     }
 }

@@ -7,21 +7,21 @@ import java.util.Optional;
 /**
  * This interface represent an instruction given to a robot.
  */
-public interface Command {
+public interface ICommand {
 
     /**
      * Method to ask the type of command.
      *
      * @return Enum RobotCommand.
      */
-    RobotCommand askCommandType();
+    RobotCommand getCommandType();
 
     /**
      * Method to ask the label if is present.
      *
      * @return an Optional of the value.
      */
-    Optional<String> askLabel();
+    Optional<String> getLabel();
 
     /**
      * Method to get the Elements.

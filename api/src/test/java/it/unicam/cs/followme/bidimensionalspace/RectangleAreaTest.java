@@ -1,7 +1,7 @@
 package it.unicam.cs.followme.bidimensionalspace;
 
-import it.unicam.cs.followme.Interfaces.Position;
-import it.unicam.cs.followme.Interfaces.Area;
+import it.unicam.cs.followme.Interfaces.IPosition;
+import it.unicam.cs.followme.Interfaces.IArea;
 import it.unicam.cs.followme.bidimensionalspace.shapes.RectangleArea;
 import org.junit.jupiter.api.Test;
 
@@ -14,13 +14,13 @@ class RectangleAreaTest {
 
     @Test
     void isInArea() throws IOException {
-        Area Rectangle = new RectangleArea("label",
+        IArea Rectangle = new RectangleArea("label",
                 new BidimensionalPosition(List.of(3.0, 4.0)),
                 30.0,
                 40.0);
-        Position position1 = new BidimensionalPosition(List.of(17.0, 16.0));
-        Position position2 = new BidimensionalPosition(List.of(-13.0, -8.0));
-        Position position3 = new BidimensionalPosition(List.of(-4.0, 5.0));
+        IPosition position1 = new BidimensionalPosition(List.of(17.0, 16.0));
+        IPosition position2 = new BidimensionalPosition(List.of(-13.0, -8.0));
+        IPosition position3 = new BidimensionalPosition(List.of(-4.0, 5.0));
 
         assertTrue(Rectangle.isInArea(position1));
         assertTrue(Rectangle.isInArea(position2));

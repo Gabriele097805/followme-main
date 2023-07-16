@@ -1,12 +1,12 @@
 package it.unicam.cs.followme.bidimensionalspace.shapes;
 
-import it.unicam.cs.followme.Interfaces.Area;
+import it.unicam.cs.followme.Interfaces.IArea;
 import it.unicam.cs.followme.bidimensionalspace.BidimensionalPosition;
 import it.unicam.cs.followme.utilities.ShapeData;
 
 import static it.unicam.cs.followme.bidimensionalspace.utilities.Utilities.computeDistanceBetweenTwoPosition;
 
-public class CircleArea implements Area<BidimensionalPosition> {
+public class CircleArea implements IArea<BidimensionalPosition> {
 
     private String label;
     private BidimensionalPosition centre;
@@ -27,7 +27,7 @@ public class CircleArea implements Area<BidimensionalPosition> {
     }
 
     @Override
-    public BidimensionalPosition getPosition() {
+    public BidimensionalPosition askPosition() {
         return this.centre;
     }
 

@@ -2,7 +2,7 @@ package it.unicam.cs.followme.Interfaces;
 
 import java.util.List;
 
-public interface Position<T> {
+public interface IPosition<T> {
 
     List<T> getCoordinates();
 }

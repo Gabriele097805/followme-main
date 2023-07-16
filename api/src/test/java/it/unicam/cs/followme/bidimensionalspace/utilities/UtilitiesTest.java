@@ -1,6 +1,5 @@
 package it.unicam.cs.followme.bidimensionalspace.utilities;
 
-import it.unicam.cs.followme.Interfaces.Position;
 import it.unicam.cs.followme.bidimensionalspace.BidimensionalPosition;
 import org.junit.jupiter.api.Test;
 

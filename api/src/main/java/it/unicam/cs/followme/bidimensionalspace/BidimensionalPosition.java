@@ -1,12 +1,12 @@
 package it.unicam.cs.followme.bidimensionalspace;
 
-import it.unicam.cs.followme.Interfaces.Position;
+import it.unicam.cs.followme.Interfaces.IPosition;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
-public class BidimensionalPosition implements Position<Double> {
+public class BidimensionalPosition implements IPosition<Double> {
     private final double x;
     private final double y;
 
