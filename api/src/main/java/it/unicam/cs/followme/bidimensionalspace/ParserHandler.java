@@ -1,8 +1,6 @@
 package it.unicam.cs.followme.bidimensionalspace;
 
-import it.unicam.cs.followme.Interfaces.Command;
-import it.unicam.cs.followme.Interfaces.Environment;
-import it.unicam.cs.followme.Interfaces.Move;
+import it.unicam.cs.followme.Interfaces.*;
 import it.unicam.cs.followme.utilities.FollowMeParserHandler;
 import it.unicam.cs.followme.utilities.RobotCommand;
 
@@ -69,12 +67,21 @@ public class ParserHandler implements FollowMeParserHandler {
 
     @Override
     public void stopCommand() {
-        Command command = new Move(new double[] {0.0, 0.0, 0.0});
+        List<Robot> robots = env.getRobots();
+        for (Robot robot : robots) {
+            robot.executeCommand(new Move(new double[] {0.0, 0.0, 0.0}));
+        }
     }
 
     @Override
     public void continueCommand(int s) {
-
+        Command command = new Continue();
+        List<Robot> robots = env.getRobots();
+        for (int i = 0; i < s; i++) {
+            for (Robot robot : robots) {
+                robot.executeCommand(command);
+            }
+        }
     }
 
     @Override

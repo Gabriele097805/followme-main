@@ -1,8 +1,10 @@
 package it.unicam.cs.followme.bidimensionalspace;
 
 import it.unicam.cs.followme.Interfaces.Environment;
+import it.unicam.cs.followme.Interfaces.Position;
 import it.unicam.cs.followme.Interfaces.Robot;
 import it.unicam.cs.followme.Interfaces.Area;
+import it.unicam.cs.followme.utilities.ShapeData;
 
 import java.util.List;
 
@@ -24,5 +26,9 @@ public class BidimensionalEnvironment<R extends Robot, A extends Area> implement
     @Override
     public List<Area> getAreas() {
         return this.areas;
+    }
+
+    public Position getAveragePosition(String label) {
+
     }
 }

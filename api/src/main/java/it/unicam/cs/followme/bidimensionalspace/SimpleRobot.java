@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
+import static java.lang.Math.sqrt;
+
 public class SimpleRobot implements Robot<Position, Command> {
 
     private final int id;
@@ -46,21 +48,21 @@ public class SimpleRobot implements Robot<Position, Command> {
         switch (command) {
             case Move(double[] args) -> move(args);
             case Continue() -> nextPosition();
-            case Follow(String label, double[] args) -> follow(label, args);
+            case Follow(double[] args) -> follow(args);
             case Signal(String label) -> signal(label);
-            case Unsignal(String label) -> unsignal(label);
+            case Unsignal(String label) -> unSignal(label);
+            case Stop() -> stop();
             default -> throw new IllegalArgumentException();
         }
     }
 
     private void nextPosition() {
         List<Double> elements = this.direction.getCoordinates();
-        double x = elements.get(0) * this.speed;
-        double y = elements.get(1) * this.speed;
+        double[] dis = normalizedValue(elements.get(0), elements.get(1));
         List<Double> coordinates = this.position.getCoordinates();
-        x += coordinates.get(0);
-        y += coordinates.get(1);
-        this.position = new BidimensionalPosition(List.of(x, y));
+        dis[0] = (dis[0] * this.speed) + coordinates.get(0);
+        dis[1] = (dis[1] * this.speed) + coordinates.get(1);
+        this.position = new BidimensionalPosition(List.of(dis[0], dis[1]));
     }
 
     private void move(double[] elements) {
@@ -69,8 +71,13 @@ public class SimpleRobot implements Robot<Position, Command> {
         this.nextPosition();
     }
 
-    private void follow(String label, double[] args) {
-
+    private void follow(double[] args) {
+        List<Double> position = this.position.getCoordinates();
+        double x = args[0] - position.get(0);
+        double y = args[1] - position.get(1);
+        double[] direction = normalizedValue(x, y);
+        this.direction = new BidimensionalPosition(List.of(direction[0], direction[1]));
+        this.nextPosition();
     }
 
     private void signal(String label) {
@@ -78,12 +85,29 @@ public class SimpleRobot implements Robot<Position, Command> {
         this.activeLabel = true;
     }
 
-    private void unsignal(String label) {
+    private void unSignal(String label) {
         if (this.activeLabel) {
             if (this.label.equals(label)) {
                 this.activeLabel = false;
             }
         }
+    }
+
+    private void stop() {
+        this.direction = new BidimensionalPosition(List.of(0.0, 0.0));
+        this.speed = 0.0;
+    }
+
+    /**
+     * @param d1
+     * @param d2
+     * @return
+     */
+    private double[] normalizedValue(double d1, double d2) {
+        double length = sqrt((d1*d1)+(d2*d2));
+        double norm1 = d1/length;
+        double norm2 = d2/length;
+        return new double[] {norm1, norm2};
     }
 
     @Override

@@ -1,8 +1,83 @@
 package it.unicam.cs.followme.app;
 
 
+import it.unicam.cs.followme.Interfaces.Area;
+import it.unicam.cs.followme.Interfaces.AreaCreator;
+import it.unicam.cs.followme.Interfaces.Environment;
+import it.unicam.cs.followme.Interfaces.Robot;
+import it.unicam.cs.followme.bidimensionalspace.BidimensionalEnvironment;
+import it.unicam.cs.followme.bidimensionalspace.ParserHandler;
+import it.unicam.cs.followme.bidimensionalspace.SimpleRobot;
+import it.unicam.cs.followme.bidimensionalspace.shapes.BidimensionalAreaCreator;
+import it.unicam.cs.followme.bidimensionalspace.shapes.CircleCreator;
+import it.unicam.cs.followme.bidimensionalspace.shapes.RectangleCreator;
+import it.unicam.cs.followme.utilities.FollowMeParser;
+import it.unicam.cs.followme.utilities.FollowMeParserException;
+import it.unicam.cs.followme.utilities.ShapeData;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.jar.JarEntry;
+
 public class App {
-    public static void main(String[] args) {
+
+    private static String environmentFile = "../app/src/main/resources/area.txt";
+
+    private static String commandsFile = "../app/src/main/resources/program.txt";
+
+    private static Path environmentPath = Paths.get(environmentFile);
+
+    private static Path commandPath = Paths.get(commandsFile);
+
+    public static void main(String[] args) throws FollowMeParserException, IOException {
+
+        Scanner scanner = new Scanner(System.in);
+
+        int input = 0;
+
+        System.out.println("Simulation started");
+        System.out.println("Robot number:");
+
+        try {
+            if (scanner.hasNextInt()) {
+                input = scanner.nextInt();
+            } else {
+                scanner.next();
+            }
+        } catch (InputMismatchException e) {
+            scanner.next();
+        }
+
+        Environment environment = new BidimensionalEnvironment();
+        ParserHandler handler = new ParserHandler(environment);
+        FollowMeParser parser = new FollowMeParser(handler);
+
+        List<ShapeData> shapesData = parser.parseEnvironment(environmentPath);
+        List<Area> areas = new ArrayList<>();
+        AreaCreator rectangle = new RectangleCreator();
+        AreaCreator circle = new CircleCreator();
+        AreaCreator creator = new BidimensionalAreaCreator(List.of(rectangle, circle));
+        for (ShapeData data : shapesData) {
+            Optional<Area> area = creator.createArea(data);
+            if (area.isPresent()) {
+                areas.add(area.get());
+            } else {
+                throw new IllegalArgumentException();
+            }
+        }
+
+        scanner.close();
+
+        List<Robot> robots = new ArrayList<>();
+        for (int i = 0; i < input; i++) {
+            robots.add(new SimpleRobot(i, environment));
+        }
+
+        environment.addElements(robots, areas);
+
+        parser.parseRobotProgram(commandPath);
 
     }
 }

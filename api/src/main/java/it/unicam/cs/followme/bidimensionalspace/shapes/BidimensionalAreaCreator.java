@@ -7,11 +7,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-public class AreaCreator implements it.unicam.cs.followme.Interfaces.AreaCreator {
+public class BidimensionalAreaCreator implements it.unicam.cs.followme.Interfaces.AreaCreator {
 
     List<it.unicam.cs.followme.Interfaces.AreaCreator> creators;
 
-    public AreaCreator(List<it.unicam.cs.followme.Interfaces.AreaCreator> creators) {
+    public BidimensionalAreaCreator(List<it.unicam.cs.followme.Interfaces.AreaCreator> creators) {
         this.creators = creators;
     }
     @Override

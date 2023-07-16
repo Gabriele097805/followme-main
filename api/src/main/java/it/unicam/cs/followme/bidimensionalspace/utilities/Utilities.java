@@ -45,7 +45,7 @@ public class Utilities {
         return random.nextDouble() * (max - min) + min;
     }
 
-    public static Position computeDirection(BidimensionalPosition start, BidimensionalPosition end) throws IOException {
+    public static Position computeDirection(BidimensionalPosition start, BidimensionalPosition end) {
         double x = -Double.compare(start.getCoordinates().get(1), end.getCoordinates().get(1));
         double y = -Double.compare(start.getCoordinates().get(1), end.getCoordinates().get(1));
         return new BidimensionalPosition(List.of(x, y));

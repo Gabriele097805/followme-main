@@ -3,6 +3,7 @@ package it.unicam.cs.followme.bidimensionalspace;
 import it.unicam.cs.followme.Interfaces.Position;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,7 +21,10 @@ public class BidimensionalPosition implements Position<Double> {
 
     @Override
     public List<Double> getCoordinates() {
-        return List.of(this.x, this.y);
+        List<Double> a = new ArrayList<>();
+        a.add(this.x);
+        a.add(this.y);
+        return a;
     }
 
     @Override
