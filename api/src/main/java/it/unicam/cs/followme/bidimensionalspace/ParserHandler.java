@@ -2,6 +2,7 @@ package it.unicam.cs.followme.bidimensionalspace;
 
 import it.unicam.cs.followme.Interfaces.ICommand;
 import it.unicam.cs.followme.Interfaces.IEnvironment;
+import it.unicam.cs.followme.bidimensionalspace.commands.MovementCommand;
 import it.unicam.cs.followme.utilities.FollowMeParserHandler;
 import it.unicam.cs.followme.utilities.RobotCommand;
 
@@ -94,10 +95,6 @@ public class ParserHandler implements FollowMeParserHandler {
 
     @Override
     public void doneCommand() {
-
-    }
-
-    private boolean () {
 
     }
 }

@@ -1,4 +1,4 @@
-package it.unicam.cs.followme.bidimensionalspace;
+package it.unicam.cs.followme.bidimensionalspace.commands;
 
 import it.unicam.cs.followme.Interfaces.ICommand;
 import it.unicam.cs.followme.utilities.RobotCommand;
@@ -13,7 +13,14 @@ public class MovementCommand implements ICommand {
 
     public MovementCommand(RobotCommand type, double[] args) {
         this.type = type;
+        this.label = "";
         this.args = args;
+    }
+
+    public MovementCommand(RobotCommand type, String label) {
+        this.type = type;
+        this.label = label;
+        this.args = new double[] {};
     }
 
     public MovementCommand(RobotCommand type, String label, double[] args) {
