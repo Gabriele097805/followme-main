@@ -28,7 +28,7 @@ public class BidimensionalEnvironment<R extends Robot, A extends Area> implement
         return this.areas;
     }
 
-    public Position getAveragePosition(String label) {
+    /*public Position getAveragePosition(String label) {
 
-    }
+    }*/
 }

@@ -9,3 +9,10 @@ plugins {
 dependencies {
     api project(':utilities')
 }
+
+compileJava {
+    options.compilerArgs.addAll(['--release', '19'])
+    options.compilerArgs.addAll(['--enable-preview'])
+    options.compilerArgs.addAll(['--add-modules', 'jdk.incubator.concurrent'])
+}
+

@@ -12,7 +12,7 @@ import java.util.Optional;
 public class CircleCreator implements AreaCreator {
     @Override
     public Optional<Area> createArea(ShapeData data) throws IOException {
-        if (data.shape() != "CIRCLE") {
+        if (!data.shape().equals("CIRCLE")) {
             return Optional.empty();
         }
         double[] args = data.args();

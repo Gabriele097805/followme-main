@@ -2,6 +2,7 @@ package it.unicam.cs.followme.bidimensionalspace;
 
 import it.unicam.cs.followme.Interfaces.*;
 import it.unicam.cs.followme.Interfaces.Command;
+import it.unicam.cs.followme.bidimensionalspace.commands.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -50,7 +51,7 @@ public class SimpleRobot implements Robot<Position, Command> {
             case Continue() -> nextPosition();
             case Follow(double[] args) -> follow(args);
             case Signal(String label) -> signal(label);
-            case Unsignal(String label) -> unSignal(label);
+            case UnSignal(String label) -> unSignal(label);
             case Stop() -> stop();
             default -> throw new IllegalArgumentException();
         }

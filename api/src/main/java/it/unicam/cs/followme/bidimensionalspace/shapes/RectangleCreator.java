@@ -12,7 +12,7 @@ import java.util.Optional;
 public class RectangleCreator implements AreaCreator {
     @Override
     public Optional<Area> createArea(ShapeData data) throws IOException {
-        if (data.shape() != "RECTANGLE") {
+        if (!data.shape().equals("RECTANGLE")) {
             return Optional.empty();
         }
         double[] args = data.args();

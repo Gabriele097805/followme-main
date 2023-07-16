@@ -9,14 +9,3 @@ import java.util.Optional;
  */
 public interface Command { }
 
-public record Move(double[] args) implements Command {}
-
-public record Continue() implements Command {}
-
-public record Follow(double[] args) implements Command {}
-
-public record Signal(String label) implements Command {}
-
-public record Unsignal(String label) implements Command {}
-
-public record Stop() implements Command {}

@@ -23,9 +23,9 @@ import java.util.jar.JarEntry;
 
 public class App {
 
-    private static String environmentFile = "../app/src/main/resources/area.txt";
+    private static String environmentFile = "C:/Users/Gavriel/Documents/GitHub/other/followme-main/app/src/main/resources/environment.txt";
 
-    private static String commandsFile = "../app/src/main/resources/program.txt";
+    private static String commandsFile = "C:/Users/Gavriel/Documents/GitHub/other/followme-main/app/src/main/resources/commands.txt";
 
     private static Path environmentPath = Paths.get(environmentFile);
 
@@ -35,12 +35,12 @@ public class App {
 
         Scanner scanner = new Scanner(System.in);
 
-        int input = 0;
+        int input = 4;
 
         System.out.println("Simulation started");
         System.out.println("Robot number:");
 
-        try {
+        /*try {
             if (scanner.hasNextInt()) {
                 input = scanner.nextInt();
             } else {
@@ -48,7 +48,7 @@ public class App {
             }
         } catch (InputMismatchException e) {
             scanner.next();
-        }
+        }*/
 
         Environment environment = new BidimensionalEnvironment();
         ParserHandler handler = new ParserHandler(environment);

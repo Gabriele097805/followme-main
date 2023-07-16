@@ -1,8 +1,9 @@
 package it.unicam.cs.followme.bidimensionalspace;
 
 import it.unicam.cs.followme.Interfaces.*;
+import it.unicam.cs.followme.bidimensionalspace.commands.Continue;
+import it.unicam.cs.followme.bidimensionalspace.commands.Move;
 import it.unicam.cs.followme.utilities.FollowMeParserHandler;
-import it.unicam.cs.followme.utilities.RobotCommand;
 
 import java.util.ArrayList;
 import java.util.List;

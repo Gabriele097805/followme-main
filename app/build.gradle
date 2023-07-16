@@ -12,7 +12,16 @@ dependencies {
     implementation project(path: ':api')
 }
 
+compileJava {
+    options.compilerArgs.addAll(['--release', '19'])
+    options.compilerArgs.addAll(['--enable-preview'])
+    options.compilerArgs.addAll(['--add-modules', 'jdk.incubator.concurrent'])
+}
+
 application {
     // Define the main class for the application.
     mainClass = 'it.unicam.cs.followme.app.App'
+
+    applicationDefaultJvmArgs = ['--enable-preview',
+                                 '--add-modules', 'jdk.incubator.concurrent']
 }
