@@ -2,7 +2,7 @@ package it.unicam.cs.followme.bidimensionalspace.shapes;
 
 import it.unicam.cs.followme.Interfaces.Area;
 import it.unicam.cs.followme.Interfaces.AreaCreator;
-import it.unicam.cs.followme.bidimensionalspace.BidimensionalPosition;
+import it.unicam.cs.followme.bidimensionalspace.BiDimensionalPosition;
 import it.unicam.cs.followme.utilities.ShapeData;
 
 import java.io.IOException;
@@ -16,7 +16,7 @@ public class CircleCreator implements AreaCreator {
             return Optional.empty();
         }
         double[] args = data.args();
-        BidimensionalPosition p = new BidimensionalPosition(List.of(args[0], args[1]));
+        BiDimensionalPosition p = new BiDimensionalPosition(List.of(args[0], args[1]));
         return Optional.of(new CircleArea(data.label(), p, args[2]));
     }
 }

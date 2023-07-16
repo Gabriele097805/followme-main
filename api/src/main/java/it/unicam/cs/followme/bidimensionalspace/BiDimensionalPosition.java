@@ -2,16 +2,15 @@ package it.unicam.cs.followme.bidimensionalspace;
 
 import it.unicam.cs.followme.Interfaces.Position;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class BidimensionalPosition implements Position<Double> {
+public class BiDimensionalPosition implements Position<Double> {
     private final double x;
     private final double y;
 
-    public BidimensionalPosition(List<Double> coordinates) {
+    public BiDimensionalPosition(List<Double> coordinates) {
         if (coordinates.size() != 2) {
             throw new IllegalArgumentException("Illegal format!");
         }
@@ -31,7 +30,7 @@ public class BidimensionalPosition implements Position<Double> {
     public boolean equals(Object obj) {
         if (obj == this) return true;
         if (obj == null || obj.getClass() != this.getClass()) return false;
-        var that = (BidimensionalPosition) obj;
+        var that = (BiDimensionalPosition) obj;
         return Double.doubleToLongBits(this.x) == Double.doubleToLongBits(that.x) &&
                 Double.doubleToLongBits(this.y) == Double.doubleToLongBits(that.y);
     }

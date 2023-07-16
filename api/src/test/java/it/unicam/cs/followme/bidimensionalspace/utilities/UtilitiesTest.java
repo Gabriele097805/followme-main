@@ -1,6 +1,6 @@
 package it.unicam.cs.followme.bidimensionalspace.utilities;
 
-import it.unicam.cs.followme.bidimensionalspace.BidimensionalPosition;
+import it.unicam.cs.followme.bidimensionalspace.BiDimensionalPosition;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -13,8 +13,8 @@ class UtilitiesTest {
 
     @Test
     void computeDistanceBetweenTwoPositionTest() throws IOException {
-        BidimensionalPosition position1 = new BidimensionalPosition(List.of(18.0, 19.0));
-        BidimensionalPosition position2 = new BidimensionalPosition(List.of(14.0, 16.0));
+        BiDimensionalPosition position1 = new BiDimensionalPosition(List.of(18.0, 19.0));
+        BiDimensionalPosition position2 = new BiDimensionalPosition(List.of(14.0, 16.0));
         assertTrue(computeDistanceBetweenTwoPosition(position1, position2) == 5.0);
     }
 

@@ -1,9 +1,8 @@
 package it.unicam.cs.followme.bidimensionalspace.utilities;
 
 import it.unicam.cs.followme.Interfaces.Position;
-import it.unicam.cs.followme.bidimensionalspace.BidimensionalPosition;
+import it.unicam.cs.followme.bidimensionalspace.BiDimensionalPosition;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
@@ -19,7 +18,7 @@ public class Utilities {
      * @param position2
      * @return
      */
-    public static double computeDistanceBetweenTwoPosition(BidimensionalPosition position1, BidimensionalPosition position2) {
+    public static double computeDistanceBetweenTwoPosition(BiDimensionalPosition position1, BiDimensionalPosition position2) {
         double x1 = position1.getCoordinates().get(0);
         double y1 = position1.getCoordinates().get(1);
         double x2 = position2.getCoordinates().get(0);
@@ -45,9 +44,9 @@ public class Utilities {
         return random.nextDouble() * (max - min) + min;
     }
 
-    public static Position computeDirection(BidimensionalPosition start, BidimensionalPosition end) {
+    public static Position computeDirection(BiDimensionalPosition start, BiDimensionalPosition end) {
         double x = -Double.compare(start.getCoordinates().get(1), end.getCoordinates().get(1));
         double y = -Double.compare(start.getCoordinates().get(1), end.getCoordinates().get(1));
-        return new BidimensionalPosition(List.of(x, y));
+        return new BiDimensionalPosition(List.of(x, y));
     }
 }

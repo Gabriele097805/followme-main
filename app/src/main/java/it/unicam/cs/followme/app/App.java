@@ -5,10 +5,10 @@ import it.unicam.cs.followme.Interfaces.Area;
 import it.unicam.cs.followme.Interfaces.AreaCreator;
 import it.unicam.cs.followme.Interfaces.Environment;
 import it.unicam.cs.followme.Interfaces.Robot;
-import it.unicam.cs.followme.bidimensionalspace.BidimensionalEnvironment;
+import it.unicam.cs.followme.bidimensionalspace.BiDimensionalEnvironment;
 import it.unicam.cs.followme.bidimensionalspace.ParserHandler;
 import it.unicam.cs.followme.bidimensionalspace.SimpleRobot;
-import it.unicam.cs.followme.bidimensionalspace.shapes.BidimensionalAreaCreator;
+import it.unicam.cs.followme.bidimensionalspace.shapes.BiDimensionalAreaCreator;
 import it.unicam.cs.followme.bidimensionalspace.shapes.CircleCreator;
 import it.unicam.cs.followme.bidimensionalspace.shapes.RectangleCreator;
 import it.unicam.cs.followme.utilities.FollowMeParser;
@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.jar.JarEntry;
 
 public class App {
 
@@ -50,7 +49,7 @@ public class App {
             scanner.next();
         }*/
 
-        Environment environment = new BidimensionalEnvironment();
+        Environment environment = new BiDimensionalEnvironment();
         ParserHandler handler = new ParserHandler(environment);
         FollowMeParser parser = new FollowMeParser(handler);
 
@@ -58,7 +57,7 @@ public class App {
         List<Area> areas = new ArrayList<>();
         AreaCreator rectangle = new RectangleCreator();
         AreaCreator circle = new CircleCreator();
-        AreaCreator creator = new BidimensionalAreaCreator(List.of(rectangle, circle));
+        AreaCreator creator = new BiDimensionalAreaCreator(List.of(rectangle, circle));
         for (ShapeData data : shapesData) {
             Optional<Area> area = creator.createArea(data);
             if (area.isPresent()) {

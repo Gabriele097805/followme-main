@@ -16,7 +16,7 @@ public class SimpleRobot implements Robot<Position, Command> {
     private final int id;
     private final Environment env;
     private Position position;
-    private Position direction;
+    private Direction direction;
     private double speed;
     private String label;
     private boolean activeLabel;
@@ -27,8 +27,8 @@ public class SimpleRobot implements Robot<Position, Command> {
         Random r = new Random();
         double x = r.nextDouble() * 100;
         double y = r.nextDouble() * 100;
-        this.position = new BidimensionalPosition(List.of(x, y));
-        this.direction = new BidimensionalPosition(List.of(0.0, 0.0));
+        this.position = new BiDimensionalPosition(List.of(x, y));
+        this.direction = new BiDimensionalDirection(List.of(0.0, 0.0));
         this.speed = 0.0;
     }
 
@@ -58,16 +58,16 @@ public class SimpleRobot implements Robot<Position, Command> {
     }
 
     private void nextPosition() {
-        List<Double> elements = this.direction.getCoordinates();
+        List<Double> elements = this.direction.getDirectionValues();
         double[] dis = normalizedValue(elements.get(0), elements.get(1));
         List<Double> coordinates = this.position.getCoordinates();
         dis[0] = (dis[0] * this.speed) + coordinates.get(0);
         dis[1] = (dis[1] * this.speed) + coordinates.get(1);
-        this.position = new BidimensionalPosition(List.of(dis[0], dis[1]));
+        this.position = new BiDimensionalPosition(List.of(dis[0], dis[1]));
     }
 
     private void move(double[] elements) {
-        this.direction = new BidimensionalPosition(List.of(elements[0], elements[1]));
+        this.direction = new BiDimensionalDirection(List.of(elements[0], elements[1]));
         this.speed = elements[2];
         this.nextPosition();
     }
@@ -77,7 +77,7 @@ public class SimpleRobot implements Robot<Position, Command> {
         double x = args[0] - position.get(0);
         double y = args[1] - position.get(1);
         double[] direction = normalizedValue(x, y);
-        this.direction = new BidimensionalPosition(List.of(direction[0], direction[1]));
+        this.direction = new BiDimensionalDirection(List.of(direction[0], direction[1]));
         this.nextPosition();
     }
 
@@ -95,7 +95,7 @@ public class SimpleRobot implements Robot<Position, Command> {
     }
 
     private void stop() {
-        this.direction = new BidimensionalPosition(List.of(0.0, 0.0));
+        this.direction = new BiDimensionalDirection(List.of(0.0, 0.0));
         this.speed = 0.0;
     }
 
@@ -127,6 +127,11 @@ public class SimpleRobot implements Robot<Position, Command> {
     @Override
     public String toString() {
         return "SimpleRobot{" +
-                "id=" + id;
+                "id=" + id +
+                ", position=" + position +
+                ", direction=" + direction +
+                ", speed=" + speed +
+                ", label='" + label + '\'' +
+                '}';
     }
 }

@@ -1,14 +1,12 @@
 package it.unicam.cs.followme.bidimensionalspace;
 
 import it.unicam.cs.followme.Interfaces.Environment;
-import it.unicam.cs.followme.Interfaces.Position;
 import it.unicam.cs.followme.Interfaces.Robot;
 import it.unicam.cs.followme.Interfaces.Area;
-import it.unicam.cs.followme.utilities.ShapeData;
 
 import java.util.List;
 
-public class BidimensionalEnvironment<R extends Robot, A extends Area> implements Environment {
+public class BiDimensionalEnvironment<R extends Robot, A extends Area> implements Environment {
 
     private List<SimpleRobot> robots;
     private List<Area> areas;

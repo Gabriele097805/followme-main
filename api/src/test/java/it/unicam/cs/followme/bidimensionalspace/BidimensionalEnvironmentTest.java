@@ -15,12 +15,12 @@ class BidimensionalEnvironmentTest {
 
     @Test
     void getRobotsTest() throws IOException {
-        Environment env = new BidimensionalEnvironment();
+        Environment env = new BiDimensionalEnvironment();
         Robot a = new SimpleRobot(1, env);
         Robot b = new SimpleRobot(1, env);
         Robot c = new SimpleRobot(1, env);
         Robot d = new SimpleRobot(1, env);
-        Area area = new CircleArea("label", new BidimensionalPosition(List.of(6.0, 4.0)), 30.0);
+        Area area = new CircleArea("label", new BiDimensionalPosition(List.of(6.0, 4.0)), 30.0);
         List<Robot> robots = List.of(a, b, c, d);
         List<Area> areas = List.of(area);
         env.addElements(robots, areas);
@@ -29,12 +29,12 @@ class BidimensionalEnvironmentTest {
 
     @Test
     void getAreasTest() throws IOException {
-        Environment env = new BidimensionalEnvironment();
+        Environment env = new BiDimensionalEnvironment();
         Robot a = new SimpleRobot(1, env);
         Robot b = new SimpleRobot(1, env);
         Robot c = new SimpleRobot(1, env);
         Robot d = new SimpleRobot(1, env);
-        Area area = new CircleArea("label", new BidimensionalPosition(List.of(6.0, 4.0)), 30.0);
+        Area area = new CircleArea("label", new BiDimensionalPosition(List.of(6.0, 4.0)), 30.0);
         List<Robot> robots = List.of(a, b, c, d);
         List<Area> areas = List.of(area);
         env.addElements(robots, areas);
