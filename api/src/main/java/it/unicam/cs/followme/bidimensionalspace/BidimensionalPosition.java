@@ -1,18 +1,18 @@
 package it.unicam.cs.followme.bidimensionalspace;
 
-import it.unicam.cs.followme.Interfaces.IPosition;
+import it.unicam.cs.followme.Interfaces.Position;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
-public class BidimensionalPosition implements IPosition<Double> {
+public class BidimensionalPosition implements Position<Double> {
     private final double x;
     private final double y;
 
-    public BidimensionalPosition(List<Double> coordinates) throws IOException {
+    public BidimensionalPosition(List<Double> coordinates) {
         if (coordinates.size() != 2) {
-            throw new IOException("Illegal format!");
+            throw new IllegalArgumentException("Illegal format!");
         }
         this.x = coordinates.get(0);
         this.y = coordinates.get(1);

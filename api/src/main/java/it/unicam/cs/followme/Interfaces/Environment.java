@@ -9,7 +9,7 @@ import java.util.List;
  * @param <R>
  * @param <A>
  */
-public interface IEnvironment<R extends IRobot, A extends IArea> {
+public interface Environment<R extends Robot, A extends Area> {
     /**
      * @param robots
      * @param areas
@@ -21,14 +21,14 @@ public interface IEnvironment<R extends IRobot, A extends IArea> {
      *
      * @return a List of Robots.
      */
-    List<IRobot> getRobots();
+    List<Robot> getRobots();
 
     /**
      * Return all the entities which implements Area Interface in the environment.
      *
      * @return a List of Areas.
      */
-    List<IArea> getAreas();
+    List<Area> getAreas();
 
 
 }

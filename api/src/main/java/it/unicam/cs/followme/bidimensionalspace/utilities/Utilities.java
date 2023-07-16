@@ -1,6 +1,6 @@
 package it.unicam.cs.followme.bidimensionalspace.utilities;
 
-import it.unicam.cs.followme.Interfaces.IPosition;
+import it.unicam.cs.followme.Interfaces.Position;
 import it.unicam.cs.followme.bidimensionalspace.BidimensionalPosition;
 
 import java.io.IOException;
@@ -45,7 +45,7 @@ public class Utilities {
         return random.nextDouble() * (max - min) + min;
     }
 
-    public static IPosition computeDirection(BidimensionalPosition start, BidimensionalPosition end) throws IOException {
+    public static Position computeDirection(BidimensionalPosition start, BidimensionalPosition end) throws IOException {
         double x = -Double.compare(start.getCoordinates().get(1), end.getCoordinates().get(1));
         double y = -Double.compare(start.getCoordinates().get(1), end.getCoordinates().get(1));
         return new BidimensionalPosition(List.of(x, y));

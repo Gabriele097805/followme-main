@@ -3,7 +3,7 @@ package it.unicam.cs.followme.Interfaces;
 /**
  * This interface represent a robot in the space.
  */
-public interface IRobot<P extends IPosition, C extends ICommand> {
+public interface Robot<P extends Position, C extends Command> {
 
     /**
      * @return

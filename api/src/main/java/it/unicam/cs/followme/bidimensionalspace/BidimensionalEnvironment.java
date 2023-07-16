@@ -1,15 +1,15 @@
 package it.unicam.cs.followme.bidimensionalspace;
 
-import it.unicam.cs.followme.Interfaces.IEnvironment;
-import it.unicam.cs.followme.Interfaces.IRobot;
-import it.unicam.cs.followme.Interfaces.IArea;
+import it.unicam.cs.followme.Interfaces.Environment;
+import it.unicam.cs.followme.Interfaces.Robot;
+import it.unicam.cs.followme.Interfaces.Area;
 
 import java.util.List;
 
-public class BidimensionalEnvironment<R extends IRobot, A extends IArea> implements IEnvironment {
+public class BidimensionalEnvironment<R extends Robot, A extends Area> implements Environment {
 
     private List<SimpleRobot> robots;
-    private List<IArea> areas;
+    private List<Area> areas;
 
     public void addElements(List robots, List areas) {
         this.robots = robots;
@@ -22,7 +22,7 @@ public class BidimensionalEnvironment<R extends IRobot, A extends IArea> impleme
     }
 
     @Override
-    public List<IArea> getAreas() {
+    public List<Area> getAreas() {
         return this.areas;
     }
 }

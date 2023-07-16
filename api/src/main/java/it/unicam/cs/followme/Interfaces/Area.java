@@ -3,7 +3,7 @@ package it.unicam.cs.followme.Interfaces;
 /**
  * This interface represent a shape of space with a label in it.
  */
-public interface IArea<P extends IPosition> {
+public interface Area<P extends Position> {
     /**
      * Return the label of the shape.
      *
