@@ -32,27 +32,7 @@ public class BiDimensionalEnvironment<R extends Robot, A extends Area> implement
         return this.areas;
     }
 
-    public List<Robot> whoIsClose(Position position, double distance) {
-        List<Robot> result = new ArrayList<>();
-        for (Robot r : this.robots) {
-            if (computeDistanceBetweenTwoPosition(position, r.askPosition()) <= distance) {
-                result.add(r);
-            }
-        }
-        return result;
-    }
-
-    public Optional<Position> getAveragePosition(List<Position> positions) {
-        double sumX = 0.0;
-        double sumY = 0.0;
-        for (Position p : positions.get()) {
-            List<Double> coordinates = p.getCoordinates();
-            sumX += coordinates.get(0);
-            sumY += coordinates.get(1);
-        }
-        return Optional.of(new BiDimensionalPosition(List.of(sumX/positions.size(), sumY/positions.size())));
-    }
-
+    @Override
     public List<Position> filterPositions(String label) {
         return this.robots.stream()
                 .filter(r -> r.askLabel().equals(label))
@@ -60,6 +40,7 @@ public class BiDimensionalEnvironment<R extends Robot, A extends Area> implement
                 .collect(Collectors.toList());
     }
 
+    @Override
     public List<Robot> whoIsInLabel(String label) {
         List<Robot> result = new ArrayList<>();
         for (Robot r : this.robots) {

@@ -4,11 +4,10 @@ import it.unicam.cs.followme.Interfaces.*;
 import it.unicam.cs.followme.Interfaces.Command;
 import it.unicam.cs.followme.bidimensionalspace.commands.*;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
+import static it.unicam.cs.followme.bidimensionalspace.utilities.Utilities.computeDistanceBetweenTwoPosition;
+import static it.unicam.cs.followme.bidimensionalspace.utilities.Utilities.computeRandomBetweenTwoDouble;
 import static java.lang.Math.sqrt;
 
 public class SimpleRobot implements Robot<Position, Command> {
@@ -59,12 +58,13 @@ public class SimpleRobot implements Robot<Position, Command> {
     @Override
     public void executeCommand(Command command) {
         switch (command) {
-            case Move(double[] args) -> move(args);
-            case Continue() -> nextPosition();
-            case Follow(String label, double[] args) -> follow(label, args);
-            case Signal(String label) -> signal(label);
-            case UnSignal(String label) -> unSignal(label);
-            case Stop() -> stop();
+            case MoveCommand(double[] args) -> move(args);
+            case RandomCommand(double[] args) -> random(args);
+            case ContinueCommand() -> nextPosition();
+            case FollowCommand(String label, double[] args) -> follow(label, args);
+            case SignalCommand(String label) -> signal(label);
+            case UnSignalCommand(String label) -> unSignal(label);
+            case StopCommand() -> stop();
             default -> throw new IllegalArgumentException();
         }
     }
@@ -84,7 +84,19 @@ public class SimpleRobot implements Robot<Position, Command> {
         this.nextPosition();
     }
 
+    private void random(double[] args) {
+        double x = computeRandomBetweenTwoDouble(args[0], args[1]);
+        double y = computeRandomBetweenTwoDouble(args[2], args[3]);
+        this.direction = new BiDimensionalDirection(List.of(x, y));
+        this.speed = args[4];
+        this.nextPosition();
+    }
+
     private void follow(String label, double[] args) {
+        Optional<Position> destination = getAveragePositionFromEnvironment(label, args[0]);
+        if (destination.isEmpty()) {
+            this.random(new double[] {-1, 1, -1, 1, this.speed});
+        }
         List<Double> position = this.position.getCoordinates();
         double x = args[0] - position.get(0);
         double y = args[1] - position.get(1);
@@ -94,14 +106,32 @@ public class SimpleRobot implements Robot<Position, Command> {
         this.nextPosition();
     }
 
-    private Position getAveragePositionFromEnvironment(String label, double distance) {
-        List<Position> positionsWithLabel = this.environment.filterPosition(label);
-        for (Robot robot : robotsWithLabel) {
-            List<Position> closePositions = environment.whoIsClose(robot.askPosition(), distance);
-            Position p = environment.averegePosition();
-            List<Double> coordinates = p.getCoordinates();
-            robot.executeCommand(new Follow(new double[] {coordinates.get(0), coordinates.get(1), args[2]}));
+    private Optional<Position> getAveragePositionFromEnvironment(String label, double distance) {
+        List<Position> positionsWithLabel = this.environment.filterPositions(label);
+        List<Position> closePositions = whoIsClose(positionsWithLabel, distance);
+        Optional<Position> average = getAveragePosition(closePositions);
+        return average;
+    }
+
+    public List<Position> whoIsClose(List<Position> positions, double distance) {
+        List<Position> result = new ArrayList<>();
+        for (Position p : positions) {
+            if (computeDistanceBetweenTwoPosition(this.position, position) <= distance) {
+                result.add(p);
+            }
         }
+        return result;
+    }
+
+    public Optional<Position> getAveragePosition(List<Position> positions) {
+        double sumX = 0.0;
+        double sumY = 0.0;
+        for (Position p : positions) {
+            List<Double> coordinates = p.getCoordinates();
+            sumX += coordinates.get(0);
+            sumY += coordinates.get(1);
+        }
+        return Optional.of(new BiDimensionalPosition(List.of(sumX/positions.size(), sumY/positions.size())));
     }
 
     private void signal(String label) {

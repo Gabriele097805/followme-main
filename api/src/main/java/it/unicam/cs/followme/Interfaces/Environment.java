@@ -1,6 +1,7 @@
 package it.unicam.cs.followme.Interfaces;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * An Environment whose only responsibility is to
@@ -30,5 +31,7 @@ public interface Environment<R extends Robot, A extends Area> {
      */
     List<Area> getAreas();
 
+    List<Position> filterPositions(String label);
 
+    List<Robot> whoIsInLabel(String label);
 }

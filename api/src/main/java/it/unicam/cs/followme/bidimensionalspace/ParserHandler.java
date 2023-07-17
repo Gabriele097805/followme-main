@@ -6,7 +6,6 @@ import it.unicam.cs.followme.utilities.FollowMeParserHandler;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.stream.Collectors;
 
 import static it.unicam.cs.followme.bidimensionalspace.utilities.Utilities.computeRandomBetweenTwoDouble;
@@ -38,7 +37,7 @@ public class ParserHandler implements FollowMeParserHandler {
 
     @Override
     public void moveCommand(double[] args) {
-        Command command = new Move(args);
+        Command command = new MoveCommand(args);
         List<SimpleRobot> robots = env.getRobots();
         for (SimpleRobot robot : robots) {
             robot.executeCommand(command);
@@ -47,10 +46,7 @@ public class ParserHandler implements FollowMeParserHandler {
 
     @Override
     public void moveRandomCommand(double[] args) {
-        double x = computeRandomBetweenTwoDouble(args[0], args[1]);
-        double y = computeRandomBetweenTwoDouble(args[2], args[3]);
-        double[] newArgs = {x, y, args[4]};
-        Command command = new Move(newArgs);
+        Command command = new MoveCommand(args);
         List<SimpleRobot> robots = env.getRobots();
         for (SimpleRobot robot : robots) {
             robot.executeCommand(command);
@@ -59,7 +55,7 @@ public class ParserHandler implements FollowMeParserHandler {
 
     @Override
     public void signalCommand(String label) {
-        Command command = new Signal(label);
+        Command command = new SignalCommand(label);
         List<Robot> robots = env.whoIsInLabel(label);
         for (Robot r : robots) {
             r.executeCommand(command);
@@ -74,24 +70,26 @@ public class ParserHandler implements FollowMeParserHandler {
                 .filter(robot -> robot.askLabel().equals(label))
                 .collect(Collectors.toList());
         for (Robot r: filteredRobots) {
-            r.executeCommand(new UnSignal(label));
+            r.executeCommand(new UnSignalCommand(label));
         }
     }
 
     @Override
     public void followCommand(String label, double[] args) {
-        List<Robot> robotsWithLabel = env.filterPosition(label);
-        for (Robot robot : robotsWithLabel) {
-            List<Robot> closeRobots = env.whoIsClose(robot.askPosition(), args[0]);
-            Position p = env.averegePosition();
-            List<Double> coordinates = p.getCoordinates();
-            robot.executeCommand(new Follow(new double[] {coordinates.get(0), coordinates.get(1), args[2]}));
+        Command command = new FollowCommand(label, args);
+        /*if (iterationCheck() != -1) {
+            this.commands.add(command);
+            return;
+        }*/
+        List<Robot> robots = env.getRobots();
+        for (Robot robot : robots) {
+            robot.executeCommand(command);
         }
     }
 
     @Override
     public void stopCommand() {
-        Command command = new Stop();
+        Command command = new StopCommand();
         /*if (iterationCheck() != -1) {
             this.commands.add(command);
             return;
@@ -104,7 +102,7 @@ public class ParserHandler implements FollowMeParserHandler {
 
     @Override
     public void continueCommand(int s) {
-        Command command = new Continue();
+        Command command = new ContinueCommand();
         /*if (iterationCheck() != -1) {
             this.commands.add(command);
             return;
@@ -135,7 +133,7 @@ public class ParserHandler implements FollowMeParserHandler {
     @Override
     public void doneCommand() {
         switch (iterationCheck()) {
-            case 0 ->
+            case 0 -> repeat();
         }
     }
 
