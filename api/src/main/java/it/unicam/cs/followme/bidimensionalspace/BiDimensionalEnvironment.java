@@ -14,7 +14,7 @@ import static it.unicam.cs.followme.bidimensionalspace.utilities.Utilities.compu
 
 public class BiDimensionalEnvironment<R extends Robot, A extends Area> implements Environment {
 
-    private List<SimpleRobot> robots;
+    private List<Robot> robots;
     private List<Area> areas;
 
     public void addElements(List robots, List areas) {
@@ -23,7 +23,7 @@ public class BiDimensionalEnvironment<R extends Robot, A extends Area> implement
     }
 
     @Override
-    public List<SimpleRobot> getRobots() {
+    public List<Robot> getRobots() {
         return this.robots;
     }
 
@@ -57,14 +57,14 @@ public class BiDimensionalEnvironment<R extends Robot, A extends Area> implement
         return Optional.of(new BiDimensionalPosition(List.of(sumX/positions.size(), sumY/positions.size())));
     }
 
-    public Optional<List<Position>> filterPositions(String label) {
-        return Optional.of(this.robots.stream()
+    public List<Position> filterPositions(String label) {
+        return this.robots.stream()
                 .filter(r -> r.askLabel().equals(label))
                 .map(r -> r.askPosition())
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
     }
 
-    public Optional<List<Robot>> whoIsInLabel(String label) {
+    public List<Robot> whoIsInLabel(String label) {
         List<Robot> result = new ArrayList<>();
         for (Robot r : this.robots) {
             for (Area a : this.areas) {
@@ -73,6 +73,6 @@ public class BiDimensionalEnvironment<R extends Robot, A extends Area> implement
                 }
             }
         }
-        return Optional.of(result);
+        return result;
     }
 }

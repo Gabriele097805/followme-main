@@ -23,6 +23,7 @@ public class SimpleRobot implements Robot<Position, Command> {
 
     public SimpleRobot(int id, Environment environment) {
         this.id = id;
+        this.environment = environment;
         Random r = new Random();
         double x = r.nextDouble() * 100;
         double y = r.nextDouble() * 100;
@@ -32,8 +33,9 @@ public class SimpleRobot implements Robot<Position, Command> {
         this.label = "";
     }
 
-    public SimpleRobot(int id, double x, double y) {
+    public SimpleRobot(int id, Environment environment, double x, double y) {
         this.id = id;
+        this.environment = environment;
         this.position = new BiDimensionalPosition(List.of(x, y));
         this.direction = new BiDimensionalDirection(List.of(0.0, 0.0));
         this.speed = 0.0;
@@ -59,7 +61,7 @@ public class SimpleRobot implements Robot<Position, Command> {
         switch (command) {
             case Move(double[] args) -> move(args);
             case Continue() -> nextPosition();
-            case Follow(double[] args) -> follow(args);
+            case Follow(String label, double[] args) -> follow(label, args);
             case Signal(String label) -> signal(label);
             case UnSignal(String label) -> unSignal(label);
             case Stop() -> stop();
@@ -82,7 +84,7 @@ public class SimpleRobot implements Robot<Position, Command> {
         this.nextPosition();
     }
 
-    private void follow(double[] args) {
+    private void follow(String label, double[] args) {
         List<Double> position = this.position.getCoordinates();
         double x = args[0] - position.get(0);
         double y = args[1] - position.get(1);
