@@ -94,6 +94,16 @@ public class SimpleRobot implements Robot<Position, Command> {
         this.nextPosition();
     }
 
+    private Position getAveragePositionFromEnvironment(String label, double distance) {
+        List<Position> positionsWithLabel = this.environment.filterPosition(label);
+        for (Robot robot : robotsWithLabel) {
+            List<Position> closePositions = environment.whoIsClose(robot.askPosition(), distance);
+            Position p = environment.averegePosition();
+            List<Double> coordinates = p.getCoordinates();
+            robot.executeCommand(new Follow(new double[] {coordinates.get(0), coordinates.get(1), args[2]}));
+        }
+    }
+
     private void signal(String label) {
         this.label = label;
         this.activeLabel = true;

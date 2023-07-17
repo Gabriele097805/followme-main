@@ -42,11 +42,7 @@ public class BiDimensionalEnvironment<R extends Robot, A extends Area> implement
         return result;
     }
 
-    public Optional<Position> getAveragePosition(String label) {
-        Optional<List<Position>> positions = filterPositions(label);
-        if (positions.isEmpty()) {
-            return Optional.empty();
-        }
+    public Optional<Position> getAveragePosition(List<Position> positions) {
         double sumX = 0.0;
         double sumY = 0.0;
         for (Position p : positions.get()) {
