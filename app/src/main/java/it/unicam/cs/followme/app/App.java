@@ -13,6 +13,7 @@ import it.unicam.cs.followme.bidimensionalspace.shapes.CircleCreator;
 import it.unicam.cs.followme.bidimensionalspace.shapes.RectangleCreator;
 import it.unicam.cs.followme.utilities.FollowMeParser;
 import it.unicam.cs.followme.utilities.FollowMeParserException;
+import it.unicam.cs.followme.utilities.FollowMeParserHandler;
 import it.unicam.cs.followme.utilities.ShapeData;
 
 import java.io.IOException;
@@ -22,23 +23,21 @@ import java.util.*;
 
 public class App {
 
-    private static String environmentFile = "C:/Users/Gavriel/Documents/GitHub/other/followme-main/app/src/main/resources/environment.txt";
+    private static final String environmentFile = "C:/Users/Gavriel/Documents/GitHub/other/followme-main/app/src/main/resources/environment.txt";
 
-    private static String commandsFile = "C:/Users/Gavriel/Documents/GitHub/other/followme-main/app/src/main/resources/commands.txt";
+    private static final String commandsFile = "C:/Users/Gavriel/Documents/GitHub/other/followme-main/app/src/main/resources/commands.txt";
 
-    private static Path environmentPath = Paths.get(environmentFile);
+    private static final Path environmentPath = Paths.get(environmentFile);
 
-    private static Path commandPath = Paths.get(commandsFile);
+    private static final Path commandPath = Paths.get(commandsFile);
 
     public static void main(String[] args) throws FollowMeParserException, IOException {
 
         Scanner scanner = new Scanner(System.in);
 
         int robotNumber = 0;
-        long time = 0;
+        int turns = 0;
 
-
-        System.out.println("Simulation started");
         System.out.println("Robot number:");
 
         try {
@@ -51,9 +50,11 @@ public class App {
             scanner.next();
         }
 
+        System.out.println("Simulation time:");
+
         try {
-            if (scanner.hasNextLong()) {
-                time = scanner.nextLong();
+            if (scanner.hasNextInt()) {
+                turns = scanner.nextInt();
             } else {
                 scanner.next();
             }
@@ -61,17 +62,17 @@ public class App {
             scanner.next();
         }
 
-        Environment environment = new BiDimensionalEnvironment();
-        ParserHandler handler = new ParserHandler(environment, time*1000);
+        Environment<Double, Double> environment = new BiDimensionalEnvironment();
+        FollowMeParserHandler handler = new ParserHandler(environment, turns);
         FollowMeParser parser = new FollowMeParser(handler);
 
         List<ShapeData> shapesData = parser.parseEnvironment(environmentPath);
-        List<Area> areas = new ArrayList<>();
-        AreaCreator rectangle = new RectangleCreator();
-        AreaCreator circle = new CircleCreator();
-        AreaCreator creator = new BiDimensionalAreaCreator(List.of(rectangle, circle));
+        List<Area<Double>> areas = new ArrayList<>();
+        AreaCreator<Double> rectangle = new RectangleCreator();
+        AreaCreator<Double> circle = new CircleCreator();
+        AreaCreator<Double> creator = new BiDimensionalAreaCreator(List.of(rectangle, circle));
         for (ShapeData data : shapesData) {
-            Optional<Area> area = creator.createArea(data);
+            Optional<Area<Double>> area = creator.createArea(data);
             if (area.isPresent()) {
                 areas.add(area.get());
             } else {
@@ -81,7 +82,7 @@ public class App {
 
         scanner.close();
 
-        List<Robot> robots = new ArrayList<>();
+        List<Robot<Double, Double>> robots = new ArrayList<>();
         for (int i = 0; i < robotNumber; i++) {
             robots.add(new SimpleRobot(i, environment));
         }

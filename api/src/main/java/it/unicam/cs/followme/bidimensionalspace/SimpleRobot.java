@@ -75,6 +75,7 @@ public class SimpleRobot implements Robot<Double, Double> {
         dis[0] = (dis[0] * this.speed) + coordinates.get(0);
         dis[1] = (dis[1] * this.speed) + coordinates.get(1);
         this.position = new BiDimensionalPosition(List.of(dis[0], dis[1]));
+        System.out.println("Robot number" + this.id + "has moved in " + this.position.toString());
     }
 
     private void move(double[] elements) {
@@ -108,7 +109,7 @@ public class SimpleRobot implements Robot<Double, Double> {
         double y = args[1] - position.get(1);
         double[] direction = normalizedValue(x, y);
         this.direction = new BiDimensionalDirection(List.of(direction[0], direction[1]));
-        this.speed = args[2];
+        this.speed = args[1];
         this.nextPosition();
     }
 
@@ -142,6 +143,7 @@ public class SimpleRobot implements Robot<Double, Double> {
     private void signal(String label) {
         this.label = label;
         this.activeLabel = true;
+        System.out.println("Robot number " + this.id + " has condition: " + this.label);
     }
 
     private void unSignal(String label) {
@@ -155,6 +157,7 @@ public class SimpleRobot implements Robot<Double, Double> {
     private void stop() {
         this.direction = new BiDimensionalDirection(List.of(0.0, 0.0));
         this.speed = 0.0;
+        System.out.println("Robot number " + this.id + " has stopped.");
     }
 
 

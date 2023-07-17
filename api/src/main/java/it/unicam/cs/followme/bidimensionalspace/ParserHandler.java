@@ -13,25 +13,25 @@ public class ParserHandler implements FollowMeParserHandler {
     private List<Command> commands;
     private int repeatArgument;
     private String untilArgument;
-    private final long simulationTime;
-    private long endTime;
+    private final int numberOfTurns;
+    private int turnCounter;
 
-    public ParserHandler(Environment<Double, Double> env, long simulationTime) {
+    public ParserHandler(Environment<Double, Double> env, int simulationTime) {
         this.env = env;
         this.commands = new ArrayList<>();
         this.iterationsCheck = new boolean[] {false, false, false};
-        this.simulationTime = simulationTime;
+        this.numberOfTurns = simulationTime;
     }
 
     @Override
     public void parsingStarted() {
-        long startTime = System.currentTimeMillis();
-        this.endTime = startTime +this.simulationTime;
+        System.out.println("Simulation has started.");
+        this.turnCounter = 0;
     }
 
     @Override
     public void parsingDone() {
-
+        System.out.println("Simulation has finished.");
     }
 
     @Override
@@ -133,10 +133,20 @@ public class ParserHandler implements FollowMeParserHandler {
     @Override
     public void doneCommand() {
         switch (iterationCheck()) {
-            case 0 -> repeat(repeatArgument);
-            case 1 -> until(untilArgument);
-            case 2 -> forever();
+            case 0 -> {
+                repeat(repeatArgument);
+                this.iterationsCheck[0] = false;
+            }
+            case 1 -> {
+                until(untilArgument);
+                this.iterationsCheck[1] = false;
+            }
+            case 2 -> {
+                forever();
+                this.iterationsCheck[2] = false;
+            }
         }
+
     }
 
     private int iterationCheck() {
@@ -180,15 +190,21 @@ public class ParserHandler implements FollowMeParserHandler {
             robot.executeCommand(command);
         }
         waitOneSecond();
+        isTimeEnded();
     }
 
     private boolean isTimeEnded() {
-        return System.currentTimeMillis() >= endTime;
+        if (this.turnCounter == this.numberOfTurns) {
+            this.parsingDone();
+            System.exit(0);
+        }
+        return true;
     }
 
     private void waitOneSecond() {
         try {
             Thread.sleep(1000);
+            this.turnCounter++;
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
