@@ -19,11 +19,11 @@ public class Utilities {
      * @param position2
      * @return
      */
-    public static double computeDistanceBetweenTwoPosition(BiDimensionalPosition position1, BiDimensionalPosition position2) {
-        double x1 = position1.getCoordinates().get(0);
-        double y1 = position1.getCoordinates().get(1);
-        double x2 = position2.getCoordinates().get(0);
-        double y2 = position2.getCoordinates().get(1);
+    public static double computeDistanceBetweenTwoPosition(Position position1, Position position2) {
+        double x1 = (double) position1.getCoordinates().get(0);
+        double y1 = (double) position1.getCoordinates().get(1);
+        double x2 = (double) position2.getCoordinates().get(0);
+        double y2 = (double) position2.getCoordinates().get(1);
         return sqrt(((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2)));
     }
 

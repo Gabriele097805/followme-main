@@ -14,13 +14,14 @@ import static java.lang.Math.sqrt;
 public class SimpleRobot implements Robot<Position, Command> {
 
     private final int id;
+    private final Environment environment;
     private Position position;
     private Direction direction;
     private double speed;
     private String label;
     private boolean activeLabel;
 
-    public SimpleRobot(int id) {
+    public SimpleRobot(int id, Environment environment) {
         this.id = id;
         Random r = new Random();
         double x = r.nextDouble() * 100;

@@ -6,6 +6,7 @@ import it.unicam.cs.followme.utilities.FollowMeParserHandler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.stream.Collectors;
 
 import static it.unicam.cs.followme.bidimensionalspace.utilities.Utilities.computeRandomBetweenTwoDouble;
@@ -15,9 +16,14 @@ public class ParserHandler implements FollowMeParserHandler {
 
     private List<Command> commands;
 
+    private boolean[] iterationCheck;
+
     public ParserHandler(Environment env) {
         this.env = env;
         this.commands = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            this.iterationCheck[i] = false;
+        }
     }
 
     @Override
@@ -54,7 +60,7 @@ public class ParserHandler implements FollowMeParserHandler {
     @Override
     public void signalCommand(String label) {
         Command command = new Signal(label);
-        List<Robot> robots = env.whoIsOnLabel(label);
+        List<Robot> robots = env.whoIsInLabel(label);
         for (Robot r : robots) {
             r.executeCommand(command);
         }
@@ -85,15 +91,24 @@ public class ParserHandler implements FollowMeParserHandler {
 
     @Override
     public void stopCommand() {
+        Command command = new Stop();
+        /*if (iterationCheck() != -1) {
+            this.commands.add(command);
+            return;
+        }*/
         List<Robot> robots = env.getRobots();
         for (Robot robot : robots) {
-            robot.executeCommand(new Move(new double[] {0.0, 0.0, 0.0}));
+            robot.executeCommand(command);
         }
     }
 
     @Override
     public void continueCommand(int s) {
         Command command = new Continue();
+        /*if (iterationCheck() != -1) {
+            this.commands.add(command);
+            return;
+        }*/
         List<Robot> robots = env.getRobots();
         for (int i = 0; i < s; i++) {
             for (Robot robot : robots) {
@@ -104,21 +119,53 @@ public class ParserHandler implements FollowMeParserHandler {
 
     @Override
     public void repeatCommandStart(int n) {
-
+        this.iterationCheck[0] = true;
     }
 
     @Override
     public void untilCommandStart(String label) {
-
+        this.iterationCheck[1] = true;
     }
 
     @Override
     public void doForeverStart() {
-
+        this.iterationCheck[2] = true;
     }
 
     @Override
     public void doneCommand() {
-
+        switch (iterationCheck()) {
+            case 0 ->
+        }
     }
+
+    private int iterationCheck() {
+        for (int i = 0; i < 3; i++){
+            if (this.iterationCheck[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private void repeat(int n) {
+        List<Robot> robots = env.getRobots();
+        for (int i = 0; i < n; i++) {
+            for (Command command : this.commands) {
+                for (Robot robot : robots) {
+                    robot.executeCommand(command);
+                }
+            }
+        }
+    }
+
+    private void until(String label) {
+        List<Robot> robots = env.getRobots();
+        while (env.whoIsInLabel())
+    }
+
+
+
+
+
 }
