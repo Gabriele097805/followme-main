@@ -14,7 +14,7 @@ import java.util.List;
  * to all the Robots in the Environment. It also organizes the iterative
  * commands as Lists of commands and count the turn of the simulation.
  */
-public class ParserHandler implements FollowMeParserHandler {
+public class CommandHandler implements FollowMeParserHandler {
     private final Environment<Double, Double> env;
     private final boolean[] iterationsCheck;
     private List<Command> commands;
@@ -23,7 +23,7 @@ public class ParserHandler implements FollowMeParserHandler {
     private final int numberOfTurns;
     private int turnCounter;
 
-    public ParserHandler(Environment<Double, Double> env, int simulationTime) {
+    public CommandHandler(Environment<Double, Double> env, int simulationTime) {
         this.env = env;
         this.commands = new ArrayList<>();
         this.iterationsCheck = new boolean[] {false, false, false};

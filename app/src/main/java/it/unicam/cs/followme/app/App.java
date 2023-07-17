@@ -6,7 +6,7 @@ import it.unicam.cs.followme.Interfaces.AreaCreator;
 import it.unicam.cs.followme.Interfaces.Environment;
 import it.unicam.cs.followme.Interfaces.Robot;
 import it.unicam.cs.followme.bidimensionalspace.BiDimensionalEnvironment;
-import it.unicam.cs.followme.bidimensionalspace.ParserHandler;
+import it.unicam.cs.followme.bidimensionalspace.CommandHandler;
 import it.unicam.cs.followme.bidimensionalspace.SimpleRobot;
 import it.unicam.cs.followme.bidimensionalspace.shapes.BiDimensionalAreaCreator;
 import it.unicam.cs.followme.bidimensionalspace.shapes.CircleCreator;
@@ -32,38 +32,21 @@ public class App {
     private static final Path commandPath = Paths.get(commandsFile);
 
     public static void main(String[] args) throws FollowMeParserException, IOException {
+        int robotNumber;
+        int turns;
 
-        Scanner scanner = new Scanner(System.in);
-
-        int robotNumber = 0;
-        int turns = 0;
+        InputChecker checker = new InputChecker();
 
         System.out.println("Robot number:");
 
-        try {
-            if (scanner.hasNextInt()) {
-                robotNumber = scanner.nextInt();
-            } else {
-                scanner.next();
-            }
-        } catch (InputMismatchException e) {
-            scanner.next();
-        }
+        robotNumber = checker.checkInput();
 
         System.out.println("Simulation time:");
 
-        try {
-            if (scanner.hasNextInt()) {
-                turns = scanner.nextInt();
-            } else {
-                scanner.next();
-            }
-        } catch (InputMismatchException e) {
-            scanner.next();
-        }
+        turns = checker.checkInput();
 
         Environment<Double, Double> environment = new BiDimensionalEnvironment();
-        FollowMeParserHandler handler = new ParserHandler(environment, turns);
+        FollowMeParserHandler handler = new CommandHandler(environment, turns);
         FollowMeParser parser = new FollowMeParser(handler);
 
         List<ShapeData> shapesData = parser.parseEnvironment(environmentPath);
@@ -79,8 +62,6 @@ public class App {
                 throw new IllegalArgumentException();
             }
         }
-
-        scanner.close();
 
         List<Robot<Double, Double>> robots = new ArrayList<>();
         for (int i = 0; i < robotNumber; i++) {

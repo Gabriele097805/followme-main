@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ParserHandlerTest {
+class CommandHandlerTest {
 
     @Test
     void moveCommand() {

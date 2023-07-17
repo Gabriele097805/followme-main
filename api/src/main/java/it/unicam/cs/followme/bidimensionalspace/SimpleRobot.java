@@ -80,7 +80,7 @@ public class SimpleRobot implements Robot<Double, Double> {
         dis[0] = (dis[0] * this.speed) + coordinates.get(0);
         dis[1] = (dis[1] * this.speed) + coordinates.get(1);
         this.position = new BiDimensionalPosition(List.of(dis[0], dis[1]));
-        System.out.println("Robot number" + this.id + "has moved in " + this.position);
+        System.out.println("Robot number " + this.id + " has moved in " + this.position);
     }
 
     private void move(double[] elements) {
