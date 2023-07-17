@@ -1,12 +1,12 @@
 package it.unicam.cs.followme.bidimensionalspace;
 
 import it.unicam.cs.followme.Interfaces.*;
-import it.unicam.cs.followme.bidimensionalspace.commands.Continue;
-import it.unicam.cs.followme.bidimensionalspace.commands.Move;
+import it.unicam.cs.followme.bidimensionalspace.commands.*;
 import it.unicam.cs.followme.utilities.FollowMeParserHandler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static it.unicam.cs.followme.bidimensionalspace.utilities.Utilities.computeRandomBetweenTwoDouble;
 
@@ -53,17 +53,34 @@ public class ParserHandler implements FollowMeParserHandler {
 
     @Override
     public void signalCommand(String label) {
-
+        Command command = new Signal(label);
+        List<Robot> robots = env.whoIsOnLabel(label);
+        for (Robot r : robots) {
+            r.executeCommand(command);
+        }
     }
 
+    //TODO
     @Override
     public void unsignalCommand(String label) {
-
+        List<Robot> robots = env.getRobots();
+        List<Robot> filteredRobots = robots.stream()
+                .filter(robot -> robot.askLabel().equals(label))
+                .collect(Collectors.toList());
+        for (Robot r: filteredRobots) {
+            r.executeCommand(new UnSignal(label));
+        }
     }
 
     @Override
     public void followCommand(String label, double[] args) {
-
+        List<Robot> robotsWithLabel = env.filterPosition(label);
+        for (Robot robot : robotsWithLabel) {
+            List<Robot> closeRobots = env.whoIsClose(robot.askPosition(), args[0]);
+            Position p = env.averegePosition();
+            List<Double> coordinates = p.getCoordinates();
+            robot.executeCommand(new Follow(new double[] {coordinates.get(0), coordinates.get(1), args[2]}));
+        }
     }
 
     @Override
