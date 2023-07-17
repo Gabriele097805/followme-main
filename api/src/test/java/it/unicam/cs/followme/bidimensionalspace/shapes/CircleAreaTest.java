@@ -1,20 +1,19 @@
 package it.unicam.cs.followme.bidimensionalspace.shapes;
 
-import it.unicam.cs.followme.Interfaces.Position;
 import it.unicam.cs.followme.Interfaces.Area;
+import it.unicam.cs.followme.Interfaces.Position;
 import it.unicam.cs.followme.bidimensionalspace.BiDimensionalPosition;
-import it.unicam.cs.followme.bidimensionalspace.shapes.CircleArea;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CircleAreaTest {
 
     @Test
-    void isInArea() throws IOException {
+    void isInArea() {
         Area<Double> Circle = new CircleArea("label",
                 new BiDimensionalPosition(List.of(3.0, 4.0)),
                 30.0);

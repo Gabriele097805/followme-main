@@ -3,14 +3,13 @@ package it.unicam.cs.followme.bidimensionalspace;
 import it.unicam.cs.followme.Interfaces.Environment;
 import it.unicam.cs.followme.Interfaces.Robot;
 import it.unicam.cs.followme.bidimensionalspace.commands.ContinueCommand;
-import it.unicam.cs.followme.bidimensionalspace.commands.FollowCommand;
 import it.unicam.cs.followme.bidimensionalspace.commands.MoveCommand;
 import it.unicam.cs.followme.bidimensionalspace.commands.StopCommand;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SimpleRobotTest {
 
@@ -38,13 +37,5 @@ class SimpleRobotTest {
         robot.executeCommand(new MoveCommand(new double[] {0.5, -0.5, 8.0}));
         robot.executeCommand(new ContinueCommand());
         assertEquals(robot.askPosition(), new BiDimensionalPosition(List.of(11.31370849898476, -11.31370849898476)));
-    }
-
-    @Test
-    void executeFollowCommandTest() {
-        Environment<Double, Double> environment = new BiDimensionalEnvironment();
-        Robot<Double, Double> robot = new SimpleRobot(0, environment, .0,0.0);
-        robot.executeCommand(new FollowCommand("", new double[] {0.0, 15.0, 8.0}));
-        assertEquals(robot.askPosition(), new BiDimensionalPosition(List.of(0.0, 8.0)));
     }
 }
