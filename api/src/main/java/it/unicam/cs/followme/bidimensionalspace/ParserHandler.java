@@ -8,20 +8,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static it.unicam.cs.followme.bidimensionalspace.utilities.Utilities.computeRandomBetweenTwoDouble;
-
 public class ParserHandler implements FollowMeParserHandler {
     private Environment env;
 
     private List<Command> commands;
 
-    private boolean[] iterationCheck;
+    private boolean[] iterationsCheck;
+
+    private int repeatArgument;
+
+    private String untilArgument;
 
     public ParserHandler(Environment env) {
         this.env = env;
         this.commands = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            this.iterationCheck[i] = false;
+            this.iterationsCheck[i] = false;
         }
     }
 
@@ -117,29 +119,33 @@ public class ParserHandler implements FollowMeParserHandler {
 
     @Override
     public void repeatCommandStart(int n) {
-        this.iterationCheck[0] = true;
+        this.iterationsCheck[0] = true;
+        this.repeatArgument = n;
     }
 
     @Override
     public void untilCommandStart(String label) {
-        this.iterationCheck[1] = true;
+        this.iterationsCheck[1] = true;
+        this.untilArgument = label
     }
 
     @Override
     public void doForeverStart() {
-        this.iterationCheck[2] = true;
+        this.iterationsCheck[2] = true;
     }
 
     @Override
     public void doneCommand() {
         switch (iterationCheck()) {
-            case 0 -> repeat();
+            case 0 -> repeat(repeatArgument);
+            case 1 -> until(untilArgument);
+            case 2 -> forever();
         }
     }
 
     private int iterationCheck() {
         for (int i = 0; i < 3; i++){
-            if (this.iterationCheck[i]) {
+            if (this.iterationsCheck[i]) {
                 return i;
             }
         }
@@ -159,10 +165,25 @@ public class ParserHandler implements FollowMeParserHandler {
 
     private void until(String label) {
         List<Robot> robots = env.getRobots();
-        while (env.whoIsInLabel())
+        while (env.whoIsInLabel(label).isEmpty()) {
+            for (Command command : this.commands) {
+                for (Robot robot : robots) {
+                    robot.executeCommand(command);
+                }
+            }
+        }
     }
 
-
+    private void forever() {
+        List<Robot> robots = env.getRobots();
+        while (true) {
+            for (Command command : this.commands) {
+                for (Robot robot : robots) {
+                    robot.executeCommand(command);
+                }
+            }
+        }
+    }
 
 
 
