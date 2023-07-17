@@ -7,44 +7,42 @@ import it.unicam.cs.followme.Interfaces.Area;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static it.unicam.cs.followme.bidimensionalspace.utilities.Utilities.computeDistanceBetweenTwoPosition;
 
-public class BiDimensionalEnvironment<R extends Robot, A extends Area> implements Environment {
+public class BiDimensionalEnvironment implements Environment<Double, Double> {
 
-    private List<Robot> robots;
-    private List<Area> areas;
+    private List<Robot<Double, Double>> robots;
+    private List<Area<Double>> areas;
 
-    public void addElements(List robots, List areas) {
+    public void addElements(List<Robot<Double, Double>> robots, List<Area<Double>> areas) {
         this.robots = robots;
         this.areas = areas;
     }
 
     @Override
-    public List<Robot> getRobots() {
+    public List<Robot<Double, Double>> getRobots() {
         return this.robots;
     }
 
     @Override
-    public List<Area> getAreas() {
+    public List<Area<Double>> getAreas() {
         return this.areas;
     }
 
     @Override
-    public List<Position> filterPositions(String label) {
+    public List<Position<Double>> filterPositions(String label) {
         return this.robots.stream()
                 .filter(r -> r.askLabel().equals(label))
-                .map(r -> r.askPosition())
+                .map(Robot::askPosition)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<Robot> whoIsInLabel(String label) {
-        List<Robot> result = new ArrayList<>();
-        for (Robot r : this.robots) {
-            for (Area a : this.areas) {
+    public List<Robot<Double, Double>> whoIsInLabel(String label) {
+        List<Robot<Double, Double>> result = new ArrayList<>();
+        for (Robot<Double, Double> r : this.robots) {
+            for (Area<Double> a : this.areas) {
                 if (a.isInArea(r.askPosition())) {
                     result.add(r);
                 }

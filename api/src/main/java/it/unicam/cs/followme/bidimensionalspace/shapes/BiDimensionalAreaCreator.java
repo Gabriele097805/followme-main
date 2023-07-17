@@ -12,17 +12,17 @@ import java.util.Optional;
  * This class wraps all the implemented AreaCreator to do a control on
  * the shape type and call the corresponding AreaCreator.
  */
-public class BiDimensionalAreaCreator implements AreaCreator {
+public class BiDimensionalAreaCreator implements AreaCreator<Double> {
 
-    List<it.unicam.cs.followme.Interfaces.AreaCreator> creators;
+    List<AreaCreator<Double>> creators;
 
-    public BiDimensionalAreaCreator(List<it.unicam.cs.followme.Interfaces.AreaCreator> creators) {
+    public BiDimensionalAreaCreator(List<AreaCreator<Double>> creators) {
         this.creators = creators;
     }
     @Override
-    public Optional<Area> createArea(ShapeData data) throws IOException {
-        for (AreaCreator creator: creators) {
-            Optional<Area> o = creator.createArea(data);
+    public Optional<Area<Double>> createArea(ShapeData data) throws IOException {
+        for (AreaCreator<Double> creator: creators) {
+            Optional<Area<Double>> o = creator.createArea(data);
             if (o.isPresent()) {
                 return o;
             }

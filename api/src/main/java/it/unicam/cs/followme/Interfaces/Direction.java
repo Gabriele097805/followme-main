@@ -5,9 +5,9 @@ import java.util.List;
 /**
  * A Direction represents the vector in space that the Robot moves through.
  *
- * @param <T> is the type used for the Direction value.
+ * @param <S> is the type used for the Direction value.
  */
-public interface Direction<T> {
+public interface Direction<S> {
 
-    List<T> getDirectionValues();
+    List<S> getDirectionValues();
 }

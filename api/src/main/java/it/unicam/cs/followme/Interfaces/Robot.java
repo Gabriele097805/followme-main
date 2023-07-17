@@ -3,21 +3,21 @@ package it.unicam.cs.followme.Interfaces;
 /**
  * This interface represent a robot in the space.
  */
-public interface Robot<P extends Position, C extends Command> {
+public interface Robot<T, S> {
 
     /**
      * Return the Robot Position.
      *
      * @return a Position.
      */
-    P askPosition();
+    Position<T> askPosition();
 
     /**
      * Return the Robot Direction.
      *
      * @return a Direction.
      */
-    Direction askDirection();
+    Direction<S> askDirection();
 
     /**
      * Return the label reported by the Robot.
@@ -33,5 +33,5 @@ public interface Robot<P extends Position, C extends Command> {
      *
      * @param command is a record with the information to execute it.
      */
-    void executeCommand(C command);
+    void executeCommand(Command command);
 }

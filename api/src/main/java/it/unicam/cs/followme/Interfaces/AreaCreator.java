@@ -8,7 +8,7 @@ import java.util.Optional;
 /**
  *
  */
-public interface AreaCreator {
+public interface AreaCreator<T> {
     /**
      * The method take as input a ShapeData to create the corresponding
      * Area Object.
@@ -18,5 +18,5 @@ public interface AreaCreator {
      *          with the taken ShapeData.
      * @throws IOException
      */
-    Optional<Area> createArea(ShapeData data) throws IOException;
+    Optional<Area<T>> createArea(ShapeData data) throws IOException;
 }

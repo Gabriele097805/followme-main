@@ -1,6 +1,7 @@
 package it.unicam.cs.followme.bidimensionalspace.shapes;
 
 import it.unicam.cs.followme.Interfaces.Area;
+import it.unicam.cs.followme.Interfaces.Position;
 import it.unicam.cs.followme.bidimensionalspace.BiDimensionalPosition;
 
 import java.util.List;
@@ -8,12 +9,12 @@ import java.util.Objects;
 
 import static it.unicam.cs.followme.bidimensionalspace.utilities.Utilities.computeDistanceOnAxis;
 
-public class RectangleArea implements Area<BiDimensionalPosition> {
+public class RectangleArea implements Area<Double> {
 
-    private String label;
-    private BiDimensionalPosition centre;
-    private double height;
-    private double width;
+    private final String label;
+    private final Position<Double> centre;
+    private final double height;
+    private final double width;
 
     public RectangleArea(String label, BiDimensionalPosition centre, double height, double width) {
         this.label = label;
@@ -28,12 +29,7 @@ public class RectangleArea implements Area<BiDimensionalPosition> {
     }
 
     @Override
-    public BiDimensionalPosition askPosition() {
-        return this.centre;
-    }
-
-    @Override
-    public boolean isInArea(BiDimensionalPosition position) {
+    public boolean isInArea(Position<Double> position) {
         List<Double> pCoordinates = position.getCoordinates();
         List<Double> cCoordinates = this.centre.getCoordinates();
         return ((computeDistanceOnAxis(cCoordinates.get(0), pCoordinates.get(0)) < this.width/2) &&

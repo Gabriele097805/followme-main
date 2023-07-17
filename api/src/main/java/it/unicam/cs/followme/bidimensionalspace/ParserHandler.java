@@ -6,10 +6,9 @@ import it.unicam.cs.followme.utilities.FollowMeParserHandler;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ParserHandler implements FollowMeParserHandler {
-    private Environment env;
+    private final Environment<Double, Double> env;
 
     private List<Command> commands;
 
@@ -19,7 +18,7 @@ public class ParserHandler implements FollowMeParserHandler {
 
     private String untilArgument;
 
-    public ParserHandler(Environment env) {
+    public ParserHandler(Environment<Double, Double> env) {
         this.env = env;
         this.commands = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
@@ -44,7 +43,7 @@ public class ParserHandler implements FollowMeParserHandler {
             this.commands.add(command);
             return;
         }
-        List<Robot> robots = env.getRobots();
+        List<Robot<Double, Double>> robots = env.getRobots();
         assignCommand(robots, command);
     }
 
@@ -55,7 +54,7 @@ public class ParserHandler implements FollowMeParserHandler {
             this.commands.add(command);
             return;
         }
-        List<Robot> robots = env.getRobots();
+        List<Robot<Double, Double>> robots = env.getRobots();
         assignCommand(robots, command);
     }
 
@@ -66,7 +65,7 @@ public class ParserHandler implements FollowMeParserHandler {
             this.commands.add(command);
             return;
         }
-        List<Robot> robots = env.whoIsInLabel(label);
+        List<Robot<Double, Double>> robots = env.whoIsInLabel(label);
         assignCommand(robots, command);
     }
 
@@ -74,11 +73,11 @@ public class ParserHandler implements FollowMeParserHandler {
     @Override
     public void unsignalCommand(String label) {
         Command command = new UnSignalCommand(label);
-        List<Robot> robots = env.getRobots();
-        List<Robot> filteredRobots = robots.stream()
+        List<Robot<Double, Double>> robots = env.getRobots();
+        List<Robot<Double, Double>> filteredRobots = robots.stream()
                 .filter(robot -> robot.askLabel().equals(label))
-                .collect(Collectors.toList());
-        for (Robot r: filteredRobots) {
+                .toList();
+        for (Robot<Double, Double> r: filteredRobots) {
             r.executeCommand(command);
         }
     }
@@ -90,7 +89,7 @@ public class ParserHandler implements FollowMeParserHandler {
             this.commands.add(command);
             return;
         }
-        List<Robot> robots = env.getRobots();
+        List<Robot<Double, Double>> robots = env.getRobots();
         assignCommand(robots, command);
     }
 
@@ -101,7 +100,7 @@ public class ParserHandler implements FollowMeParserHandler {
             this.commands.add(command);
             return;
         }
-        List<Robot> robots = env.getRobots();
+        List<Robot<Double, Double>> robots = env.getRobots();
         assignCommand(robots, command);
     }
 
@@ -112,7 +111,7 @@ public class ParserHandler implements FollowMeParserHandler {
             this.commands.add(command);
             return;
         }
-        List<Robot> robots = env.getRobots();
+        List<Robot<Double, Double>> robots = env.getRobots();
         assignCommand(robots, command);
     }
 
@@ -125,7 +124,7 @@ public class ParserHandler implements FollowMeParserHandler {
     @Override
     public void untilCommandStart(String label) {
         this.iterationsCheck[1] = true;
-        this.untilArgument = label
+        this.untilArgument = label;
     }
 
     @Override
@@ -152,7 +151,7 @@ public class ParserHandler implements FollowMeParserHandler {
     }
 
     private void repeat(int n) {
-        List<Robot> robots = env.getRobots();
+        List<Robot<Double, Double>> robots = env.getRobots();
         for (int i = 0; i < n; i++) {
             for (Command command : this.commands) {
                 assignCommand(robots, command);
@@ -161,7 +160,7 @@ public class ParserHandler implements FollowMeParserHandler {
     }
 
     private void until(String label) {
-        List<Robot> robots = env.getRobots();
+        List<Robot<Double, Double>> robots = env.getRobots();
         while (env.whoIsInLabel(label).isEmpty()) {
             for (Command command : this.commands) {
                 assignCommand(robots, command);
@@ -170,7 +169,7 @@ public class ParserHandler implements FollowMeParserHandler {
     }
 
     private void forever() {
-        List<Robot> robots = env.getRobots();
+        List<Robot<Double, Double>> robots = env.getRobots();
         while (true) {
             for (Command command : this.commands) {
                 assignCommand(robots, command);
@@ -178,8 +177,8 @@ public class ParserHandler implements FollowMeParserHandler {
         }
     }
 
-    private void assignCommand(List<Robot> robots, Command command) {
-        for (Robot robot : robots) {
+    private void assignCommand(List<Robot<Double,Double>> robots, Command command) {
+        for (Robot<Double, Double> robot : robots) {
             robot.executeCommand(command);
         }
     }

@@ -1,26 +1,22 @@
 package it.unicam.cs.followme.bidimensionalspace.shapes;
 
 import it.unicam.cs.followme.Interfaces.Area;
-import it.unicam.cs.followme.bidimensionalspace.BiDimensionalPosition;
-import it.unicam.cs.followme.utilities.ShapeData;
+import it.unicam.cs.followme.Interfaces.Position;
 
 import java.util.Objects;
 
 import static it.unicam.cs.followme.bidimensionalspace.utilities.Utilities.computeDistanceBetweenTwoPosition;
 
-public class CircleArea implements Area<BiDimensionalPosition> {
+public class CircleArea implements Area<Double> {
 
-    private String label;
-    private BiDimensionalPosition centre;
-    private double radius;
+    private final String label;
+    private final Position<Double> centre;
+    private final double radius;
 
-    public CircleArea(String label, BiDimensionalPosition centre, double radius) {
+    public CircleArea(String label, Position<Double> centre, double radius) {
         this.label = label;
         this.centre = centre;
         this.radius = radius;
-    }
-
-    public CircleArea(ShapeData data) {
     }
 
     @Override
@@ -29,13 +25,8 @@ public class CircleArea implements Area<BiDimensionalPosition> {
     }
 
     @Override
-    public BiDimensionalPosition askPosition() {
-        return this.centre;
-    }
-
-    @Override
-    public boolean isInArea(BiDimensionalPosition position) {
-        return (computeDistanceBetweenTwoPosition(this.centre, position) <= radius) ? true : false;
+    public boolean isInArea(Position<Double> position) {
+        return computeDistanceBetweenTwoPosition(this.centre, position) <= radius;
     }
 
     @Override

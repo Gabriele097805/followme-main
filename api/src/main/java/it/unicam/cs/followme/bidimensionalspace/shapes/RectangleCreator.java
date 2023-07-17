@@ -5,13 +5,12 @@ import it.unicam.cs.followme.Interfaces.AreaCreator;
 import it.unicam.cs.followme.bidimensionalspace.BiDimensionalPosition;
 import it.unicam.cs.followme.utilities.ShapeData;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-public class RectangleCreator implements AreaCreator {
+public class RectangleCreator implements AreaCreator<Double> {
     @Override
-    public Optional<Area> createArea(ShapeData data) throws IOException {
+    public Optional<Area<Double>> createArea(ShapeData data) {
         if (!data.shape().equals("RECTANGLE")) {
             return Optional.empty();
         }

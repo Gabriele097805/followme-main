@@ -5,14 +5,14 @@ import it.unicam.cs.followme.Interfaces.Direction;
 import java.util.List;
 import java.util.Objects;
 
-public class BiDimensionalDirection implements Direction {
+public class BiDimensionalDirection implements Direction<Double> {
 
-    private double x;
-    private double y;
+    private final double x;
+    private final double y;
 
     public BiDimensionalDirection(List<Double> values) {
         for (double value : values) {
-            if (value < -1 && value > 1) {
+            if (value < -1 || value > 1) {
                 throw new IllegalArgumentException();
             }
         }

@@ -10,17 +10,17 @@ import static it.unicam.cs.followme.bidimensionalspace.utilities.Utilities.compu
 import static it.unicam.cs.followme.bidimensionalspace.utilities.Utilities.computeRandomBetweenTwoDouble;
 import static java.lang.Math.sqrt;
 
-public class SimpleRobot implements Robot<Position, Command> {
+public class SimpleRobot implements Robot<Double, Double> {
 
     private final int id;
-    private final Environment environment;
-    private Position position;
-    private Direction direction;
+    private final Environment<Double, Double> environment;
+    private Position<Double> position;
+    private Direction<Double> direction;
     private double speed;
     private String label;
     private boolean activeLabel;
 
-    public SimpleRobot(int id, Environment environment) {
+    public SimpleRobot(int id, Environment<Double, Double> environment) {
         this.id = id;
         this.environment = environment;
         Random r = new Random();
@@ -32,7 +32,7 @@ public class SimpleRobot implements Robot<Position, Command> {
         this.label = "";
     }
 
-    public SimpleRobot(int id, Environment environment, double x, double y) {
+    public SimpleRobot(int id, Environment<Double, Double> environment, double x, double y) {
         this.id = id;
         this.environment = environment;
         this.position = new BiDimensionalPosition(List.of(x, y));
@@ -46,11 +46,11 @@ public class SimpleRobot implements Robot<Position, Command> {
     }
 
     @Override
-    public Position askPosition() {
+    public Position<Double> askPosition() {
         return this.position;
     }
 
-    public Direction askDirection() { return this.direction; }
+    public Direction<Double> askDirection() { return this.direction; }
 
     @Override
     public String askLabel() { return this.label; }
@@ -61,9 +61,9 @@ public class SimpleRobot implements Robot<Position, Command> {
             case MoveCommand(double[] args) -> move(args);
             case RandomCommand(double[] args) -> random(args);
             case ContinueCommand() -> nextPosition();
-            case FollowCommand(String label, double[] args) -> follow(label, args);
-            case SignalCommand(String label) -> signal(label);
-            case UnSignalCommand(String label) -> unSignal(label);
+            case FollowCommand(String labelToFollow, double[] args) -> follow(labelToFollow, args);
+            case SignalCommand(String labelToSignal) -> signal(labelToSignal);
+            case UnSignalCommand(String labelToUnSignal) -> unSignal(labelToUnSignal);
             case StopCommand() -> stop();
             default -> throw new IllegalArgumentException();
         }
@@ -93,11 +93,11 @@ public class SimpleRobot implements Robot<Position, Command> {
     }
 
     private void follow(String label, double[] args) {
-        Optional<Position> destination = getAveragePositionFromEnvironment(label, args[0]);
+        Optional<Position<Double>> destination = getAveragePositionFromEnvironment(label, args[0]);
         if (destination.isEmpty()) {
             this.random(new double[] {-1, 1, -1, 1, this.speed});
         }
-        List<Double> position = this.position.getCoordinates();
+        var position = this.position.getCoordinates();
         double x = args[0] - position.get(0);
         double y = args[1] - position.get(1);
         double[] direction = normalizedValue(x, y);
@@ -106,16 +106,15 @@ public class SimpleRobot implements Robot<Position, Command> {
         this.nextPosition();
     }
 
-    private Optional<Position> getAveragePositionFromEnvironment(String label, double distance) {
-        List<Position> positionsWithLabel = this.environment.filterPositions(label);
-        List<Position> closePositions = whoIsClose(positionsWithLabel, distance);
-        Optional<Position> average = getAveragePosition(closePositions);
-        return average;
+    private Optional<Position<Double>> getAveragePositionFromEnvironment(String label, double distance) {
+        List<Position<Double>> positionsWithLabel = this.environment.filterPositions(label);
+        List<Position<Double>> closePositions = whoIsClose(positionsWithLabel, distance);
+        return getAveragePosition(closePositions);
     }
 
-    public List<Position> whoIsClose(List<Position> positions, double distance) {
-        List<Position> result = new ArrayList<>();
-        for (Position p : positions) {
+    public List<Position<Double>> whoIsClose(List<Position<Double>> positions, double distance) {
+        List<Position<Double>> result = new ArrayList<>();
+        for (Position<Double> p : positions) {
             if (computeDistanceBetweenTwoPosition(this.position, position) <= distance) {
                 result.add(p);
             }
@@ -123,10 +122,10 @@ public class SimpleRobot implements Robot<Position, Command> {
         return result;
     }
 
-    public Optional<Position> getAveragePosition(List<Position> positions) {
+    public Optional<Position<Double>> getAveragePosition(List<Position<Double>> positions) {
         double sumX = 0.0;
         double sumY = 0.0;
-        for (Position p : positions) {
+        for (Position<Double> p : positions) {
             List<Double> coordinates = p.getCoordinates();
             sumX += coordinates.get(0);
             sumY += coordinates.get(1);

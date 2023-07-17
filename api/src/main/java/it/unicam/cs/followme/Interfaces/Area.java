@@ -3,7 +3,7 @@ package it.unicam.cs.followme.Interfaces;
 /**
  * This interface represent a shape of space with a label in it.
  */
-public interface Area<P extends Position> {
+public interface Area<T> {
     /**
      * Return the label of the shape.
      *
@@ -12,17 +12,10 @@ public interface Area<P extends Position> {
     String getLabel();
 
     /**
-     * Return the centre of the shape.
-     *
-     * @return
-     */
-    P askPosition();
-
-    /**
      * Return the Area of the shape.
      *
      * @return a double that represent the area.
      */
-    boolean isInArea(P position);
+    boolean isInArea(Position<T> position);
 
 }
