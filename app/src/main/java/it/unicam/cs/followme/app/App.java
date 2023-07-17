@@ -22,10 +22,9 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class App {
+    private static final String environmentFile = "../app/src/main/resources/environment.txt";
 
-    private static final String environmentFile = "C:/Users/Gavriel/Documents/GitHub/other/followme-main/app/src/main/resources/environment.txt";
-
-    private static final String commandsFile = "C:/Users/Gavriel/Documents/GitHub/other/followme-main/app/src/main/resources/commands.txt";
+    private static final String commandsFile = "../app/src/main/resources/commands.txt";
 
     private static final Path environmentPath = Paths.get(environmentFile);
 
@@ -37,13 +36,17 @@ public class App {
 
         InputChecker checker = new InputChecker();
 
+        Scanner scanner = new Scanner(System.in);
+
         System.out.println("Robot number:");
 
-        robotNumber = checker.checkInput();
+        robotNumber = checker.checkInput(scanner);
 
         System.out.println("Simulation time:");
 
-        turns = checker.checkInput();
+        turns = checker.checkInput(scanner);
+
+        scanner.close();
 
         Environment<Double, Double> environment = new BiDimensionalEnvironment();
         FollowMeParserHandler handler = new CommandHandler(environment, turns);
