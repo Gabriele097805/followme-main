@@ -22,7 +22,7 @@ public class BiDimensionalDirection implements Direction {
 
     @Override
     public List<Double> getDirectionValues() {
-        return null;
+        return List.of(x, y);
     }
 
     @Override

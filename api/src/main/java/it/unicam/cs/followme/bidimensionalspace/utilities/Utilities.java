@@ -1,5 +1,6 @@
 package it.unicam.cs.followme.bidimensionalspace.utilities;
 
+import it.unicam.cs.followme.Interfaces.Direction;
 import it.unicam.cs.followme.Interfaces.Position;
 import it.unicam.cs.followme.bidimensionalspace.BiDimensionalPosition;
 
@@ -48,5 +49,15 @@ public class Utilities {
         double x = -Double.compare(start.getCoordinates().get(1), end.getCoordinates().get(1));
         double y = -Double.compare(start.getCoordinates().get(1), end.getCoordinates().get(1));
         return new BiDimensionalPosition(List.of(x, y));
+    }
+
+    public static double[] getArguments(Position position) {
+        List<Double> list = position.getCoordinates();
+        return new double[] {list.get(0), list.get(1)};
+    }
+
+    public static double[] getArguments(Direction direction) {
+        List<Double> list = direction.getDirectionValues();
+        return new double[] {list.get(0), list.get(1)};
     }
 }

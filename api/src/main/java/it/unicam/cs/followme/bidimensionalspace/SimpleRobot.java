@@ -14,22 +14,29 @@ import static java.lang.Math.sqrt;
 public class SimpleRobot implements Robot<Position, Command> {
 
     private final int id;
-    private final Environment env;
     private Position position;
     private Direction direction;
     private double speed;
     private String label;
     private boolean activeLabel;
 
-    public SimpleRobot(int id, Environment env) throws IOException {
+    public SimpleRobot(int id) {
         this.id = id;
-        this.env = env;
         Random r = new Random();
         double x = r.nextDouble() * 100;
         double y = r.nextDouble() * 100;
         this.position = new BiDimensionalPosition(List.of(x, y));
         this.direction = new BiDimensionalDirection(List.of(0.0, 0.0));
         this.speed = 0.0;
+        this.label = "";
+    }
+
+    public SimpleRobot(int id, double x, double y) {
+        this.id = id;
+        this.position = new BiDimensionalPosition(List.of(x, y));
+        this.direction = new BiDimensionalDirection(List.of(0.0, 0.0));
+        this.speed = 0.0;
+        this.label = "";
     }
 
     public int askId() {
@@ -38,8 +45,10 @@ public class SimpleRobot implements Robot<Position, Command> {
 
     @Override
     public Position askPosition() {
-        return position;
+        return this.position;
     }
+
+    public Direction askDirection() { return this.direction; }
 
     @Override
     public String askLabel() { return this.label; }
@@ -78,6 +87,7 @@ public class SimpleRobot implements Robot<Position, Command> {
         double y = args[1] - position.get(1);
         double[] direction = normalizedValue(x, y);
         this.direction = new BiDimensionalDirection(List.of(direction[0], direction[1]));
+        this.speed = args[2];
         this.nextPosition();
     }
 

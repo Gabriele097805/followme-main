@@ -71,7 +71,7 @@ public class App {
 
         List<Robot> robots = new ArrayList<>();
         for (int i = 0; i < input; i++) {
-            robots.add(new SimpleRobot(i, environment));
+            robots.add(new SimpleRobot(i));
         }
 
         environment.addElements(robots, areas);

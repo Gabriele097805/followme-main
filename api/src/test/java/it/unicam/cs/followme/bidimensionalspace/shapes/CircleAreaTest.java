@@ -1,7 +1,8 @@
-package it.unicam.cs.followme.bidimensionalspace;
+package it.unicam.cs.followme.bidimensionalspace.shapes;
 
 import it.unicam.cs.followme.Interfaces.Position;
 import it.unicam.cs.followme.Interfaces.Area;
+import it.unicam.cs.followme.bidimensionalspace.BiDimensionalPosition;
 import it.unicam.cs.followme.bidimensionalspace.shapes.CircleArea;
 import org.junit.jupiter.api.Test;
 

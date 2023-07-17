@@ -10,6 +10,8 @@ public interface Robot<P extends Position, C extends Command> {
      */
     P askPosition();
 
+    Direction askDirection();
+
     /**
      * @return
      */
