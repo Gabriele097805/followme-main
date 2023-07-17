@@ -9,8 +9,10 @@ import java.util.Objects;
 
 import static java.lang.Math.abs;
 
+/**
+ * This Class represent a Rectangle Area in a bi-dimensional system.
+ */
 public class RectangleArea implements Area<Double> {
-
     private final String label;
     private final Position<Double> centre;
     private final double height;
@@ -39,9 +41,9 @@ public class RectangleArea implements Area<Double> {
     /**
      * Method used to get the distance between two coordinates on an axis.
      *
-     * @param first
-     * @param second
-     * @return
+     * @param first is the first coordinate.
+     * @param second is the second coordinate.
+     * @return the absolut value of the differance between the first and second values.
      */
     private double computeDistanceOnAxis(double first, double second) {
         return abs(first - second);

@@ -7,6 +7,13 @@ import it.unicam.cs.followme.utilities.FollowMeParserHandler;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This implementation of the FollowMeParser is structured to communicate
+ * with an Environment to get access to the Robots. It then takes the commands
+ * values from the parser and use them to create a Command record to give
+ * to all the Robots in the Environment. It also organizes the iterative
+ * commands as Lists of commands and count the turn of the simulation.
+ */
 public class ParserHandler implements FollowMeParserHandler {
     private final Environment<Double, Double> env;
     private final boolean[] iterationsCheck;

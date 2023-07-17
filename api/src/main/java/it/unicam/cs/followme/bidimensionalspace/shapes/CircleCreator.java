@@ -8,6 +8,9 @@ import it.unicam.cs.followme.utilities.ShapeData;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * This class is a creator of Circles.
+ */
 public class CircleCreator implements AreaCreator<Double> {
     @Override
     public Optional<Area<Double>> createArea(ShapeData data) {

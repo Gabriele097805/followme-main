@@ -7,8 +7,10 @@ import java.util.Objects;
 
 import static it.unicam.cs.followme.bidimensionalspace.utilities.Utilities.computeDistanceBetweenTwoPosition;
 
+/**
+ * This Class represent a Circle Area in a bi-dimensional system.
+ */
 public class CircleArea implements Area<Double> {
-
     private final String label;
     private final Position<Double> centre;
     private final double radius;

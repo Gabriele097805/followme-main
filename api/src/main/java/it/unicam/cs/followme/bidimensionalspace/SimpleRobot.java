@@ -9,6 +9,11 @@ import java.util.*;
 import static it.unicam.cs.followme.bidimensionalspace.utilities.Utilities.computeDistanceBetweenTwoPosition;
 import static java.lang.Math.sqrt;
 
+/**
+ * This Class is a representation of a Robot that can move in a bi-dimensional system.
+ * It takes in input a command implemented as a record and interprets it to compute
+ * his next Position.
+ */
 public class SimpleRobot implements Robot<Double, Double> {
 
     private final int id;
@@ -75,7 +80,7 @@ public class SimpleRobot implements Robot<Double, Double> {
         dis[0] = (dis[0] * this.speed) + coordinates.get(0);
         dis[1] = (dis[1] * this.speed) + coordinates.get(1);
         this.position = new BiDimensionalPosition(List.of(dis[0], dis[1]));
-        System.out.println("Robot number" + this.id + "has moved in " + this.position.toString());
+        System.out.println("Robot number" + this.id + "has moved in " + this.position);
     }
 
     private void move(double[] elements) {

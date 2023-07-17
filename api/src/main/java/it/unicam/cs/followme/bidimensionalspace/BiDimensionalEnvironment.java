@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
+/**
+ * This Class is a representation of an Environment in a bi-dimensional system.
+ */
 public class BiDimensionalEnvironment implements Environment<Double, Double> {
 
     private List<Robot<Double, Double>> robots;

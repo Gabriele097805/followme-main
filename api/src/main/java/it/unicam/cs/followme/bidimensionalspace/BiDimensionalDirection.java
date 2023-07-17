@@ -5,6 +5,9 @@ import it.unicam.cs.followme.Interfaces.Direction;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * This Class represent a Direction in a bi-dimensional system.
+ */
 public class BiDimensionalDirection implements Direction<Double> {
 
     private final double x;

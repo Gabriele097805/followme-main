@@ -13,12 +13,12 @@ import java.util.Optional;
  * the shape type and call the corresponding AreaCreator.
  */
 public class BiDimensionalAreaCreator implements AreaCreator<Double> {
-
     List<AreaCreator<Double>> creators;
 
     public BiDimensionalAreaCreator(List<AreaCreator<Double>> creators) {
         this.creators = creators;
     }
+
     @Override
     public Optional<Area<Double>> createArea(ShapeData data) throws IOException {
         for (AreaCreator<Double> creator: creators) {

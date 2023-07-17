@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * This Class represent a Position in a bi-dimensional system.
+ */
 public class BiDimensionalPosition implements Position<Double> {
     private final double x;
     private final double y;
