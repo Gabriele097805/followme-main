@@ -17,12 +17,12 @@ class CircleCreatorTest {
     @Test
     void createCircleAreaTest() throws IOException {
         ShapeData data = new ShapeData("label", "CIRCLE", new double[] {0.0, 0.0, 30.0});
-        AreaCreator creator = new CircleCreator();
-        Optional<Area> circleTest1 = creator.createArea(data);
+        AreaCreator<Double> creator = new CircleCreator();
+        Optional<Area<Double>> circleTest1 = creator.createArea(data);
         assertTrue(circleTest1.isPresent());
 
-        Area circleTest2 = new CircleArea(data.label(),
+        Area<Double> circleTest2 = new CircleArea(data.label(),
                 new BiDimensionalPosition(List.of(0.0, 0.0)), 30.0);
-        assertTrue(circleTest1.get().equals(circleTest2));
+        assertEquals(circleTest1.get(), circleTest2);
     }
 }

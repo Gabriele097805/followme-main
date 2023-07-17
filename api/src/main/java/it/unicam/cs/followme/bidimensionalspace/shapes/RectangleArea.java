@@ -7,7 +7,7 @@ import it.unicam.cs.followme.bidimensionalspace.BiDimensionalPosition;
 import java.util.List;
 import java.util.Objects;
 
-import static it.unicam.cs.followme.bidimensionalspace.utilities.Utilities.computeDistanceOnAxis;
+import static java.lang.Math.abs;
 
 public class RectangleArea implements Area<Double> {
 
@@ -34,6 +34,17 @@ public class RectangleArea implements Area<Double> {
         List<Double> cCoordinates = this.centre.getCoordinates();
         return ((computeDistanceOnAxis(cCoordinates.get(0), pCoordinates.get(0)) < this.width/2) &&
                 (computeDistanceOnAxis(cCoordinates.get(1), pCoordinates.get(1)) < this.height/2));
+    }
+
+    /**
+     * Method used to get the distance between two coordinates on an axis.
+     *
+     * @param first
+     * @param second
+     * @return
+     */
+    private double computeDistanceOnAxis(double first, double second) {
+        return abs(first - second);
     }
 
     @Override

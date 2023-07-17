@@ -34,23 +34,35 @@ public class App {
 
         Scanner scanner = new Scanner(System.in);
 
-        int input = 4;
+        int robotNumber = 0;
+        long time = 0;
+
 
         System.out.println("Simulation started");
         System.out.println("Robot number:");
 
-        /*try {
+        try {
             if (scanner.hasNextInt()) {
-                input = scanner.nextInt();
+                robotNumber = scanner.nextInt();
             } else {
                 scanner.next();
             }
         } catch (InputMismatchException e) {
             scanner.next();
-        }*/
+        }
+
+        try {
+            if (scanner.hasNextLong()) {
+                time = scanner.nextLong();
+            } else {
+                scanner.next();
+            }
+        } catch (InputMismatchException e) {
+            scanner.next();
+        }
 
         Environment environment = new BiDimensionalEnvironment();
-        ParserHandler handler = new ParserHandler(environment);
+        ParserHandler handler = new ParserHandler(environment, time*1000);
         FollowMeParser parser = new FollowMeParser(handler);
 
         List<ShapeData> shapesData = parser.parseEnvironment(environmentPath);
@@ -70,7 +82,7 @@ public class App {
         scanner.close();
 
         List<Robot> robots = new ArrayList<>();
-        for (int i = 0; i < input; i++) {
+        for (int i = 0; i < robotNumber; i++) {
             robots.add(new SimpleRobot(i, environment));
         }
 

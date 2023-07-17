@@ -4,7 +4,6 @@ import it.unicam.cs.followme.Interfaces.*;
 import it.unicam.cs.followme.bidimensionalspace.shapes.CircleArea;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,30 +11,30 @@ import static org.junit.jupiter.api.Assertions.*;
 class BiDimensionalEnvironmentTest {
 
     @Test
-    void getRobotsTest() throws IOException {
-        Environment env = new BiDimensionalEnvironment();
-        Robot a = new SimpleRobot(0);
-        Robot b = new SimpleRobot(1);
-        Robot c = new SimpleRobot(2);
-        Robot d = new SimpleRobot(3);
-        Area area = new CircleArea("label", new BiDimensionalPosition(List.of(6.0, 4.0)), 30.0);
-        List<Robot<Position, Command>> robots = List.of(a, b, c, d);
-        List<Area> areas = List.of(area);
+    void getRobotsTest() {
+        Environment<Double, Double> env = new BiDimensionalEnvironment();
+        Robot<Double, Double> a = new SimpleRobot(0, env);
+        Robot<Double, Double> b = new SimpleRobot(1, env);
+        Robot<Double, Double> c = new SimpleRobot(2, env);
+        Robot<Double, Double> d = new SimpleRobot(3, env);
+        Area<Double> area = new CircleArea("label", new BiDimensionalPosition(List.of(6.0, 4.0)), 30.0);
+        List<Robot<Double, Double>> robots = List.of(a, b, c, d);
+        List<Area<Double>> areas = List.of(area);
         env.addElements(robots, areas);
-        assertTrue(env.getRobots().equals(List.of(a, b, c, d)));
+        assertEquals(env.getRobots(), List.of(a, b, c, d));
     }
 
     @Test
-    void getAreasTest() throws IOException {
-        Environment env = new BiDimensionalEnvironment();
-        Robot a = new SimpleRobot(0);
-        Robot b = new SimpleRobot(1);
-        Robot c = new SimpleRobot(2);
-        Robot d = new SimpleRobot(3);
-        Area area = new CircleArea("label", new BiDimensionalPosition(List.of(6.0, 4.0)), 30.0);
-        List<Robot> robots = List.of(a, b, c, d);
-        List<Area> areas = List.of(area);
+    void getAreasTest() {
+        Environment<Double, Double> env = new BiDimensionalEnvironment();
+        Robot<Double, Double> a = new SimpleRobot(0, env);
+        Robot<Double, Double> b = new SimpleRobot(1, env);
+        Robot<Double, Double> c = new SimpleRobot(2, env);
+        Robot<Double, Double> d = new SimpleRobot(3, env);
+        Area<Double> area = new CircleArea("label", new BiDimensionalPosition(List.of(6.0, 4.0)), 30.0);
+        List<Robot<Double, Double>> robots = List.of(a, b, c, d);
+        List<Area<Double>> areas = List.of(area);
         env.addElements(robots, areas);
-        assertTrue(env.getAreas().equals(List.of(area)));
+        assertEquals(env.getAreas(), List.of(area));
     }
 }

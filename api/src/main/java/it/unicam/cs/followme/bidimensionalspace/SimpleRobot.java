@@ -7,7 +7,6 @@ import it.unicam.cs.followme.bidimensionalspace.commands.*;
 import java.util.*;
 
 import static it.unicam.cs.followme.bidimensionalspace.utilities.Utilities.computeDistanceBetweenTwoPosition;
-import static it.unicam.cs.followme.bidimensionalspace.utilities.Utilities.computeRandomBetweenTwoDouble;
 import static java.lang.Math.sqrt;
 
 public class SimpleRobot implements Robot<Double, Double> {
@@ -92,6 +91,13 @@ public class SimpleRobot implements Robot<Double, Double> {
         this.nextPosition();
     }
 
+    private double computeRandomBetweenTwoDouble(double first, double second) {
+        double max = Double.max(first, second);
+        double min = Double.min(first, second);
+        Random random = new Random();
+        return random.nextDouble() * (max - min) + min;
+    }
+
     private void follow(String label, double[] args) {
         Optional<Position<Double>> destination = getAveragePositionFromEnvironment(label, args[0]);
         if (destination.isEmpty()) {
@@ -112,7 +118,7 @@ public class SimpleRobot implements Robot<Double, Double> {
         return getAveragePosition(closePositions);
     }
 
-    public List<Position<Double>> whoIsClose(List<Position<Double>> positions, double distance) {
+    private List<Position<Double>> whoIsClose(List<Position<Double>> positions, double distance) {
         List<Position<Double>> result = new ArrayList<>();
         for (Position<Double> p : positions) {
             if (computeDistanceBetweenTwoPosition(this.position, position) <= distance) {
@@ -122,7 +128,7 @@ public class SimpleRobot implements Robot<Double, Double> {
         return result;
     }
 
-    public Optional<Position<Double>> getAveragePosition(List<Position<Double>> positions) {
+    private Optional<Position<Double>> getAveragePosition(List<Position<Double>> positions) {
         double sumX = 0.0;
         double sumY = 0.0;
         for (Position<Double> p : positions) {
@@ -151,10 +157,14 @@ public class SimpleRobot implements Robot<Double, Double> {
         this.speed = 0.0;
     }
 
+
     /**
-     * @param d1
-     * @param d2
-     * @return
+     * This utility method normalize two double values necessary to calculate
+     * the Direction of a Robot move.
+     *
+     * @param d1 is the first double.
+     * @param d2 is the second double.
+     * @return a double array with the normalized value.
      */
     private double[] normalizedValue(double d1, double d2) {
         double length = sqrt((d1*d1)+(d2*d2));

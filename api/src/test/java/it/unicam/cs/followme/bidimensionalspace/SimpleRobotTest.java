@@ -1,5 +1,6 @@
 package it.unicam.cs.followme.bidimensionalspace;
 
+import it.unicam.cs.followme.Interfaces.Environment;
 import it.unicam.cs.followme.Interfaces.Robot;
 import it.unicam.cs.followme.bidimensionalspace.commands.ContinueCommand;
 import it.unicam.cs.followme.bidimensionalspace.commands.FollowCommand;
@@ -15,14 +16,16 @@ class SimpleRobotTest {
 
     @Test
     void executeMoveCommandTest() {
-        Robot robot = new SimpleRobot(0, 0.0,0.0);
+        Environment<Double, Double> environment = new BiDimensionalEnvironment();
+        Robot<Double, Double> robot = new SimpleRobot(0, environment, .0,0.0);
         robot.executeCommand(new MoveCommand(new double[] {0.5, -0.5, 8.0}));
         assertEquals(robot.askPosition(), new BiDimensionalPosition(List.of(5.65685424949238, -5.65685424949238)));
     }
 
     @Test
     void executeStopCommandTest() {
-        Robot robot = new SimpleRobot(0, 0.0,0.0);
+        Environment<Double, Double> environment = new BiDimensionalEnvironment();
+        Robot<Double, Double> robot = new SimpleRobot(0, environment, 0.0,0.0);
         robot.executeCommand(new MoveCommand(new double[] {0.5, -0.5, 8.0}));
         robot.executeCommand(new StopCommand());
         assertEquals(robot.askDirection(), new BiDimensionalDirection(List.of(0.0, 0.0)));
@@ -30,7 +33,8 @@ class SimpleRobotTest {
 
     @Test
     void executeContinueCommandTest() {
-        Robot robot = new SimpleRobot(0, 0.0,0.0);
+        Environment<Double, Double> environment = new BiDimensionalEnvironment();
+        Robot<Double, Double> robot = new SimpleRobot(0, environment, 0.0, 0.0);
         robot.executeCommand(new MoveCommand(new double[] {0.5, -0.5, 8.0}));
         robot.executeCommand(new ContinueCommand());
         assertEquals(robot.askPosition(), new BiDimensionalPosition(List.of(11.31370849898476, -11.31370849898476)));
@@ -38,8 +42,9 @@ class SimpleRobotTest {
 
     @Test
     void executeFollowCommandTest() {
-        Robot robot = new SimpleRobot(0, 0.0,0.0);
-        robot.executeCommand(new FollowCommand(new double[] {0.0, 15.0, 8.0}));
+        Environment<Double, Double> environment = new BiDimensionalEnvironment();
+        Robot<Double, Double> robot = new SimpleRobot(0, environment, .0,0.0);
+        robot.executeCommand(new FollowCommand("", new double[] {0.0, 15.0, 8.0}));
         assertEquals(robot.askPosition(), new BiDimensionalPosition(List.of(0.0, 8.0)));
     }
 }

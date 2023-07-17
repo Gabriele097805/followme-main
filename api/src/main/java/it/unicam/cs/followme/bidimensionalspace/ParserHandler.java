@@ -9,26 +9,24 @@ import java.util.List;
 
 public class ParserHandler implements FollowMeParserHandler {
     private final Environment<Double, Double> env;
-
+    private final boolean[] iterationsCheck;
     private List<Command> commands;
-
-    private boolean[] iterationsCheck;
-
     private int repeatArgument;
-
     private String untilArgument;
+    private final long simulationTime;
+    private long endTime;
 
-    public ParserHandler(Environment<Double, Double> env) {
+    public ParserHandler(Environment<Double, Double> env, long simulationTime) {
         this.env = env;
         this.commands = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            this.iterationsCheck[i] = false;
-        }
+        this.iterationsCheck = new boolean[] {false, false, false};
+        this.simulationTime = simulationTime;
     }
 
     @Override
     public void parsingStarted() {
-
+        long startTime = System.currentTimeMillis();
+        this.endTime = startTime +this.simulationTime;
     }
 
     @Override
@@ -69,7 +67,6 @@ public class ParserHandler implements FollowMeParserHandler {
         assignCommand(robots, command);
     }
 
-    //TODO
     @Override
     public void unsignalCommand(String label) {
         Command command = new UnSignalCommand(label);
@@ -77,9 +74,7 @@ public class ParserHandler implements FollowMeParserHandler {
         List<Robot<Double, Double>> filteredRobots = robots.stream()
                 .filter(robot -> robot.askLabel().equals(label))
                 .toList();
-        for (Robot<Double, Double> r: filteredRobots) {
-            r.executeCommand(command);
-        }
+        assignCommand(filteredRobots, command);
     }
 
     @Override
@@ -119,17 +114,20 @@ public class ParserHandler implements FollowMeParserHandler {
     public void repeatCommandStart(int n) {
         this.iterationsCheck[0] = true;
         this.repeatArgument = n;
+        this.commands = new ArrayList<>();
     }
 
     @Override
     public void untilCommandStart(String label) {
         this.iterationsCheck[1] = true;
         this.untilArgument = label;
+        this.commands = new ArrayList<>();
     }
 
     @Override
     public void doForeverStart() {
         this.iterationsCheck[2] = true;
+        this.commands = new ArrayList<>();
     }
 
     @Override
@@ -170,7 +168,7 @@ public class ParserHandler implements FollowMeParserHandler {
 
     private void forever() {
         List<Robot<Double, Double>> robots = env.getRobots();
-        while (true) {
+        while (isTimeEnded()) {
             for (Command command : this.commands) {
                 assignCommand(robots, command);
             }
@@ -181,6 +179,18 @@ public class ParserHandler implements FollowMeParserHandler {
         for (Robot<Double, Double> robot : robots) {
             robot.executeCommand(command);
         }
+        waitOneSecond();
     }
 
+    private boolean isTimeEnded() {
+        return System.currentTimeMillis() >= endTime;
+    }
+
+    private void waitOneSecond() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -19,26 +19,26 @@ class BiDimensionalAreaCreatorTest {
         ShapeData data1 = new ShapeData("label", "RECTANGLE", new double[] {0.0, 0.0, 10.0, 20.0});
         ShapeData data2 = new ShapeData("label", "CIRCLE", new double[] {0.0, 0.0, 10.0});
         ShapeData data3 = new ShapeData("label", "TRIANGLE", new double[] {0.0, 0.0, 10.0, 20.0});
-        AreaCreator rectangleCreator = new RectangleCreator();
-        AreaCreator circleCreator = new CircleCreator();
-        AreaCreator creator = new BiDimensionalAreaCreator(List.of(rectangleCreator, circleCreator));
+        AreaCreator<Double> rectangleCreator = new RectangleCreator();
+        AreaCreator<Double> circleCreator = new CircleCreator();
+        AreaCreator<Double> creator = new BiDimensionalAreaCreator(List.of(rectangleCreator, circleCreator));
 
-        Optional<Area> rectangleTest = creator.createArea(data1);
+        Optional<Area<Double>> rectangleTest = creator.createArea(data1);
         assertTrue(rectangleTest.isPresent());
-        Area rectangleTest2 = new RectangleArea(data1.label(),
+        Area<Double> rectangleTest2 = new RectangleArea(data1.label(),
                 new BiDimensionalPosition(List.of(0.0, 0.0)),
                 10.0,
                 20.0);
-        assertTrue(rectangleTest.get().equals(rectangleTest2));
+        assertEquals(rectangleTest.get(), rectangleTest2);
 
-        Optional<Area> circleTest = creator.createArea(data2);
+        Optional<Area<Double>> circleTest = creator.createArea(data2);
         assertTrue(circleTest.isPresent());
-        Area circleTest2 = new CircleArea(data1.label(),
+        Area<Double> circleTest2 = new CircleArea(data1.label(),
                 new BiDimensionalPosition(List.of(0.0, 0.0)),
                 10.0);
-        assertTrue(circleTest.get().equals(circleTest2));
+        assertEquals(circleTest.get(), circleTest2);
 
-        Optional<Area> exceptionTest = creator.createArea(data3);
+        Optional<Area<Double>> exceptionTest = creator.createArea(data3);
         assertTrue(exceptionTest.isEmpty());
     }
 }

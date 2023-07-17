@@ -15,15 +15,15 @@ class CircleAreaTest {
 
     @Test
     void isInArea() throws IOException {
-        Area Circle = new CircleArea("label",
+        Area<Double> Circle = new CircleArea("label",
                 new BiDimensionalPosition(List.of(3.0, 4.0)),
                 30.0);
-        Position position1 = new BiDimensionalPosition(List.of(17.0, 16.0));
-        Position position2 = new BiDimensionalPosition(List.of(-13.0, -8.0));
-        Position position3 = new BiDimensionalPosition(List.of(-4.0, 5.0));
-        Position position4 = new BiDimensionalPosition(List.of(-4.0, 35.0));
-        Position position5 = new BiDimensionalPosition(List.of(-28.0, 5.0));
-        Position position6 = new BiDimensionalPosition(List.of(27.0, 27.0));
+        Position<Double> position1 = new BiDimensionalPosition(List.of(17.0, 16.0));
+        Position<Double> position2 = new BiDimensionalPosition(List.of(-13.0, -8.0));
+        Position<Double> position3 = new BiDimensionalPosition(List.of(-4.0, 5.0));
+        Position<Double> position4 = new BiDimensionalPosition(List.of(-4.0, 35.0));
+        Position<Double> position5 = new BiDimensionalPosition(List.of(-28.0, 5.0));
+        Position<Double> position6 = new BiDimensionalPosition(List.of(27.0, 27.0));
 
         assertTrue(Circle.isInArea(position1));
         assertTrue(Circle.isInArea(position2));

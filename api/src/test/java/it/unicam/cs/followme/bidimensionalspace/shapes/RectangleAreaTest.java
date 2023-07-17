@@ -15,13 +15,13 @@ class RectangleAreaTest {
 
     @Test
     void isInArea() throws IOException {
-        Area Rectangle = new RectangleArea("label",
+        Area<Double> Rectangle = new RectangleArea("label",
                 new BiDimensionalPosition(List.of(3.0, 4.0)),
                 30.0,
                 40.0);
-        Position position1 = new BiDimensionalPosition(List.of(17.0, 16.0));
-        Position position2 = new BiDimensionalPosition(List.of(-13.0, -8.0));
-        Position position3 = new BiDimensionalPosition(List.of(-4.0, 5.0));
+        Position<Double> position1 = new BiDimensionalPosition(List.of(17.0, 16.0));
+        Position<Double> position2 = new BiDimensionalPosition(List.of(-13.0, -8.0));
+        Position<Double> position3 = new BiDimensionalPosition(List.of(-4.0, 5.0));
 
         assertTrue(Rectangle.isInArea(position1));
         assertTrue(Rectangle.isInArea(position2));
